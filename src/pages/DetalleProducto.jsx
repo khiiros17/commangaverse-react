@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { Container, Row, Col, Badge, Button, Alert, Breadcrumb } from 'react-bootstrap';
-import { formatearPrecio } from '../utils/formato';
+import Precio from '../components/Precio';                     // ⬅️ NUEVO
 
 function DetalleProducto({ productos, onAgregar }) {
     // Lee el ":id" de la dirección (/producto/3 → id = "3")
@@ -21,10 +21,13 @@ function DetalleProducto({ productos, onAgregar }) {
 
     return (
         <Container className="my-5">
-            {/* Ruta: Inicio > Productos > Nombre */}
+            {/* Ruta: Inicio > Categoría > Nombre */}
             <Breadcrumb>
                 <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/' }}>Inicio</Breadcrumb.Item>
-                <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/productos' }}>Productos</Breadcrumb.Item>
+                {/* ⬅️ CAMBIO: la categoría ahora lleva a su página */}
+                <Breadcrumb.Item linkAs={Link} linkProps={{ to: `/categorias/${encodeURIComponent(producto.categoria)}` }}>
+                    {producto.categoria}
+                </Breadcrumb.Item>
                 <Breadcrumb.Item active>{producto.nombre}</Breadcrumb.Item>
             </Breadcrumb>
 
@@ -37,7 +40,10 @@ function DetalleProducto({ productos, onAgregar }) {
                     <Badge bg="secondary" className="mb-2">{producto.categoria}</Badge>
                     <h2>{producto.nombre}</h2>
                     <p className="text-secondary">Código: {producto.codigo}</p>
-                    <p className="precio fs-3">{formatearPrecio(producto.precio)}</p>
+
+                    {/* ⬅️ CAMBIO: precio con oferta */}
+                    <Precio producto={producto} grande />
+
                     <p>{producto.descripcion}</p>
                     <p className="text-secondary">Stock disponible: {producto.stock} unidades</p>
 

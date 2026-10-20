@@ -105,3 +105,43 @@ body {
 .tarjeta-formulario .form-control::placeholder {
   color: #888;
 }
+
+/* ===== PRECIO CON OFERTA ===== */
+.precio-anterior {
+  color: #888;
+  text-decoration: line-through;
+  /* precio tachado */
+  font-weight: normal;
+  font-size: 0.8em;
+}
+
+/* ===== CATEGORÍAS ===== */
+.tarjeta-categoria {
+  border: 2px solid var(--color-naranjo);
+  transition: transform 0.2s;
+}
+
+.tarjeta-categoria:hover {
+  transform: translateY(-5px);
+}
+
+/* ===== NOSOTROS Y BLOGS ===== */
+.seccion-texto,
+.blog-completo {
+  max-width: 900px;
+  line-height: 1.7;
+}
+
+.caja-info {
+  border-left: 4px solid var(--color-naranjo);
+}
+
+.tarjeta-blog {
+  border: 2px solid #333;
+  overflow: hidden;
+}
+
+.tarjeta-blog .card-img-top {
+  height: 220px;
+  object-fit: cover;
+}

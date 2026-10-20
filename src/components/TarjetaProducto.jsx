@@ -1,12 +1,10 @@
 import { Card, Button, Badge } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { formatearPrecio } from '../utils/formato';
+import Precio from './Precio';                                   // ⬅️ NUEVO
 
 function TarjetaProducto({ producto, onAgregar }) {
     return (
         <Card bg="dark" text="white" className="h-100 tarjeta-producto">
-
-
             <Link to={`/producto/${producto.id}`}>
                 <Card.Img variant="top" src={producto.imagen} alt={producto.nombre} />
             </Link>
@@ -16,16 +14,14 @@ function TarjetaProducto({ producto, onAgregar }) {
                     {producto.categoria}
                 </Badge>
 
-
                 <Card.Title>
                     <Link to={`/producto/${producto.id}`} className="text-white text-decoration-none">
                         {producto.nombre}
                     </Link>
                 </Card.Title>
 
-                <Card.Text className="precio">
-                    {formatearPrecio(producto.precio)}
-                </Card.Text>
+                {/* ⬅️ CAMBIO: ahora usa el componente Precio (muestra ofertas) */}
+                <Precio producto={producto} />
 
                 <Button
                     variant="warning"

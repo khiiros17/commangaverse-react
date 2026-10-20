@@ -4,7 +4,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import { obtenerProductos } from './data/productosService';
 import { obtenerCarrito, guardarCarrito } from './data/carritoService';
-import { obtenerSesion, cerrarSesion } from './data/sesionService';                        // ⬅️ NUEVO
+import { obtenerSesion, cerrarSesion } from './data/sesionService';
 import { agregarItem, cambiarCantidad, quitarItem, contarUnidades } from './utils/carrito';
 
 // ===== PÁGINAS =====
@@ -21,6 +21,7 @@ import Login from './pages/Login';
 import Registro from './pages/Registro';
 import Nosotros from './pages/Nosotros';
 import Blogs from './pages/Blogs';
+import DetalleBlog from './pages/DetalleBlog';                                             // ⬅️ NUEVO
 import Contacto from './pages/Contacto';
 import NoEncontrada from './pages/NoEncontrada';
 
@@ -28,7 +29,7 @@ function App() {
   // ===== ESTADO =====
   const [productos] = useState(() => obtenerProductos());
   const [carrito, setCarrito] = useState(() => obtenerCarrito());
-  const [usuario, setUsuario] = useState(() => obtenerSesion());            // ⬅️ NUEVO: quién inició sesión
+  const [usuario, setUsuario] = useState(() => obtenerSesion());
 
   // Guarda el carrito en localStorage cada vez que cambia
   useEffect(() => {
@@ -36,7 +37,6 @@ function App() {
   }, [carrito]);
 
   // ===== SESIÓN =====
-  // ⬅️ NUEVO
   function manejarLogin(usuarioIngresado) {
     setUsuario(usuarioIngresado);
   }
@@ -73,7 +73,6 @@ function App() {
 
   return (
     <div className="d-flex flex-column min-vh-100">
-      {/* ⬅️ CAMBIO: el Header recibe el usuario y la función para cerrar sesión */}
       <Header cantidadCarrito={cantidadTotal} usuario={usuario} onLogout={manejarLogout} />
 
       <main className="flex-grow-1">
@@ -81,8 +80,10 @@ function App() {
           <Route path="/" element={<Home productos={productos} onAgregar={agregarAlCarrito} />} />
           <Route path="/productos" element={<Productos productos={productos} onAgregar={agregarAlCarrito} />} />
           <Route path="/producto/:id" element={<DetalleProducto productos={productos} onAgregar={agregarAlCarrito} />} />
-          <Route path="/categorias" element={<Categorias />} />
-          <Route path="/ofertas" element={<Ofertas />} />
+          {/* ⬅️ CAMBIO: Categorías (con y sin nombre) y Ofertas reciben los productos */}
+          <Route path="/categorias" element={<Categorias productos={productos} onAgregar={agregarAlCarrito} />} />
+          <Route path="/categorias/:nombre" element={<Categorias productos={productos} onAgregar={agregarAlCarrito} />} />
+          <Route path="/ofertas" element={<Ofertas productos={productos} onAgregar={agregarAlCarrito} />} />
           <Route
             path="/carrito"
             element={
@@ -98,11 +99,11 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/pago-exitoso" element={<PagoExitoso />} />
           <Route path="/pago-error" element={<PagoError />} />
-          {/* ⬅️ CAMBIO: Login recibe la función para avisar que alguien inició sesión */}
           <Route path="/login" element={<Login onLogin={manejarLogin} />} />
           <Route path="/registro" element={<Registro />} />
           <Route path="/nosotros" element={<Nosotros />} />
           <Route path="/blogs" element={<Blogs />} />
+          <Route path="/blogs/:id" element={<DetalleBlog />} />                                {/* ⬅️ NUEVO */}
           <Route path="/contacto" element={<Contacto />} />
           <Route path="*" element={<NoEncontrada />} />
         </Routes>
