@@ -1,6 +1,6 @@
 import { Navbar, Nav, Container, Badge } from 'react-bootstrap';
 
-function Header() {
+function Header({ cantidadCarrito }) {
     return (
         <Navbar bg="dark" data-bs-theme="dark" expand="lg" className="border-bottom border-warning">
             <Container>
@@ -30,7 +30,7 @@ function Header() {
                         <Nav.Link href="#">Iniciar sesión</Nav.Link>
                         <Nav.Link href="#">Registrarse</Nav.Link>
                         <Nav.Link href="#">
-                            🛒 Carrito <Badge bg="warning" text="dark">0</Badge>
+                            Carrito <Badge bg="warning" text="dark">{cantidadCarrito}</Badge>
                         </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>

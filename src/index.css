@@ -11,3 +11,27 @@ body {
   color: white;
   min-height: 100vh;
 }
+
+
+/* ===== TARJETAS DE PRODUCTOS ===== */
+.tarjeta-producto {
+  border: 2px solid var(--color-naranjo);
+  transition: transform 0.2s;
+}
+
+.tarjeta-producto:hover {
+  transform: translateY(-5px);
+  /* la tarjeta "sube" un poco al pasar el mouse */
+}
+
+.tarjeta-producto .card-img-top {
+  aspect-ratio: 2 / 3;
+  /* forma de portada de cómic (¡como en la Evaluación 1!) */
+  object-fit: cover;
+}
+
+.precio {
+  color: var(--color-amarillo);
+  font-size: 1.3rem;
+  font-weight: bold;
+}
