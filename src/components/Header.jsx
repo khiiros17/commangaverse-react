@@ -1,7 +1,7 @@
 import { Navbar, Nav, Container, Badge } from 'react-bootstrap';
 import { Link, NavLink } from 'react-router-dom';
 
-function Header({ cantidadCarrito, usuario, onLogout }) {        // ⬅️ CAMBIO: recibe usuario y onLogout
+function Header({ cantidadCarrito, usuario, onLogout }) {
     return (
         <Navbar bg="dark" data-bs-theme="dark" expand="lg" className="border-bottom border-warning">
             <Container>
@@ -24,9 +24,13 @@ function Header({ cantidadCarrito, usuario, onLogout }) {        // ⬅️ CAMBI
                     </Nav>
 
                     <Nav className="align-items-lg-center">
-                        {/* ⬅️ NUEVO: si hay sesión, saluda; si no, muestra Iniciar sesión y Registrarse */}
+                        {/* Si hay sesión, saluda; si no, muestra Iniciar sesión y Registrarse */}
                         {usuario ? (
                             <>
+                                {/* ⬅️ NUEVO: el enlace al panel solo lo ve el Administrador */}
+                                {usuario.tipo === 'Administrador' && (
+                                    <Nav.Link as={NavLink} to="/admin" className="text-warning">⚙️ Panel admin</Nav.Link>
+                                )}
                                 <Navbar.Text className="me-2">Hola, {usuario.nombre}</Navbar.Text>
                                 <Nav.Link as="button" className="btn btn-link" onClick={onLogout}>
                                     Cerrar sesión

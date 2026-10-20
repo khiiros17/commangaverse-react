@@ -49,7 +49,13 @@ function Login({ onLogin }) {
         }
 
         onLogin(usuario);
-        navigate('/');
+
+        // ⬅️ CAMBIO: el administrador va directo a su panel
+        if (usuario.tipo === 'Administrador') {
+            navigate('/admin');
+        } else {
+            navigate('/');
+        }
     }
 
     return (

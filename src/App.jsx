@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { obtenerProductos } from './data/productosService';
+import { obtenerProductos, crearProducto, actualizarProducto, eliminarProducto } from './data/productosService';   // ⬅️ CAMBIO
 import { obtenerCarrito, guardarCarrito } from './data/carritoService';
 import { obtenerSesion, cerrarSesion } from './data/sesionService';
-import { procesarCompra } from './data/ordenesService';                                    // ⬅️ NUEVO
+import { procesarCompra } from './data/ordenesService';
 import { agregarItem, cambiarCantidad, quitarItem, contarUnidades } from './utils/carrito';
 
 // ===== PÁGINAS =====
@@ -26,9 +26,16 @@ import DetalleBlog from './pages/DetalleBlog';
 import Contacto from './pages/Contacto';
 import NoEncontrada from './pages/NoEncontrada';
 
+// ===== PANEL ADMIN ===== ⬅️ NUEVO
+import RutaAdmin from './components/RutaAdmin';
+import LayoutAdmin from './pages/admin/LayoutAdmin';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminProductos from './pages/admin/AdminProductos';
+import FormularioProducto from './pages/admin/FormularioProducto';
+
 function App() {
   // ===== ESTADO =====
-  const [productos, setProductos] = useState(() => obtenerProductos());                 // ⬅️ CAMBIO: ahora con setProductos
+  const [productos, setProductos] = useState(() => obtenerProductos());
   const [carrito, setCarrito] = useState(() => obtenerCarrito());
   const [usuario, setUsuario] = useState(() => obtenerSesion());
 
@@ -70,7 +77,7 @@ function App() {
     setCarrito([]);
   }
 
-  // ===== COMPRA ===== ⬅️ NUEVO
+  // ===== COMPRA =====
   // Procesa el pago y devuelve la orden. Si se pagó, refresca el stock y vacía el carrito.
   function confirmarCompra(cliente, tarjeta) {
     const orden = procesarCompra(carrito, productos, cliente, tarjeta);
@@ -82,6 +89,24 @@ function App() {
     // Si fue rechazada, el carrito NO se toca
 
     return orden;
+  }
+
+  // ===== ADMIN: PRODUCTOS ===== ⬅️ NUEVO
+  // Crea (si no hay id) o actualiza (si hay id), y refresca la lista
+  function guardarProducto(datosProducto, id) {
+    if (id === null) {
+      crearProducto(datosProducto);
+    } else {
+      actualizarProducto(id, datosProducto);
+    }
+    setProductos(obtenerProductos());
+  }
+
+  // Elimina el producto y también lo quita del carrito
+  function eliminarProductoAdmin(id) {
+    eliminarProducto(id);
+    setProductos(obtenerProductos());
+    setCarrito(quitarItem(carrito, id));
   }
 
   const cantidadTotal = contarUnidades(carrito);
@@ -110,7 +135,6 @@ function App() {
               />
             }
           />
-          {/* ⬅️ CAMBIO: Checkout recibe todo lo necesario para comprar */}
           <Route
             path="/checkout"
             element={
@@ -122,7 +146,6 @@ function App() {
               />
             }
           />
-          {/* ⬅️ CAMBIO: ahora llevan el número de la orden */}
           <Route path="/pago-exitoso/:id" element={<PagoExitoso />} />
           <Route path="/pago-error/:id" element={<PagoError />} />
           <Route path="/login" element={<Login onLogin={manejarLogin} />} />
@@ -131,6 +154,15 @@ function App() {
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blogs/:id" element={<DetalleBlog />} />
           <Route path="/contacto" element={<Contacto />} />
+
+          {/* ===== PANEL ADMIN (rutas anidadas y protegidas) ===== ⬅️ NUEVO */}
+          <Route path="/admin" element={<RutaAdmin usuario={usuario}><LayoutAdmin /></RutaAdmin>}>
+            <Route index element={<AdminDashboard productos={productos} />} />
+            <Route path="productos" element={<AdminProductos productos={productos} onEliminar={eliminarProductoAdmin} />} />
+            <Route path="productos/nuevo" element={<FormularioProducto key="nuevo" productos={productos} onGuardar={guardarProducto} />} />
+            <Route path="productos/editar/:id" element={<FormularioProducto key="editar" productos={productos} onGuardar={guardarProducto} />} />
+          </Route>
+
           <Route path="*" element={<NoEncontrada />} />
         </Routes>
       </main>

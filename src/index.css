@@ -161,3 +161,34 @@ body {
     background: white;
   }
 }
+
+/* ===== PANEL ADMIN ===== */
+.menu-admin {
+  border-right: 2px solid var(--color-naranjo);
+}
+
+.menu-admin .nav-link {
+  color: #ddd;
+  border-radius: 6px;
+}
+
+.menu-admin .nav-link:hover,
+.menu-admin .nav-link.active {
+  background-color: var(--color-tarjeta);
+  color: var(--color-amarillo);
+}
+
+.tarjeta-dato {
+  border-width: 0 0 0 4px;
+  /* solo el borde izquierdo, de color */
+  border-style: solid;
+}
+
+/* En celular el menú queda arriba: el borde pasa a ser inferior */
+@media (max-width: 767px) {
+  .menu-admin {
+    border-right: none;
+    border-bottom: 2px solid var(--color-naranjo);
+    padding-bottom: 12px;
+  }
+}
