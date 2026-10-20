@@ -1,7 +1,7 @@
 import { Navbar, Nav, Container, Badge } from 'react-bootstrap';
 import { Link, NavLink } from 'react-router-dom';
 
-function Header({ cantidadCarrito }) {
+function Header({ cantidadCarrito, usuario, onLogout }) {        // ⬅️ CAMBIO: recibe usuario y onLogout
     return (
         <Navbar bg="dark" data-bs-theme="dark" expand="lg" className="border-bottom border-warning">
             <Container>
@@ -23,9 +23,22 @@ function Header({ cantidadCarrito }) {
                         <Nav.Link as={NavLink} to="/contacto">Contacto</Nav.Link>
                     </Nav>
 
-                    <Nav>
-                        <Nav.Link as={NavLink} to="/login">Iniciar sesión</Nav.Link>
-                        <Nav.Link as={NavLink} to="/registro">Registrarse</Nav.Link>
+                    <Nav className="align-items-lg-center">
+                        {/* ⬅️ NUEVO: si hay sesión, saluda; si no, muestra Iniciar sesión y Registrarse */}
+                        {usuario ? (
+                            <>
+                                <Navbar.Text className="me-2">Hola, {usuario.nombre}</Navbar.Text>
+                                <Nav.Link as="button" className="btn btn-link" onClick={onLogout}>
+                                    Cerrar sesión
+                                </Nav.Link>
+                            </>
+                        ) : (
+                            <>
+                                <Nav.Link as={NavLink} to="/login">Iniciar sesión</Nav.Link>
+                                <Nav.Link as={NavLink} to="/registro">Registrarse</Nav.Link>
+                            </>
+                        )}
+
                         <Nav.Link as={NavLink} to="/carrito">
                             🛒 Carrito <Badge bg="warning" text="dark">{cantidadCarrito}</Badge>
                         </Nav.Link>

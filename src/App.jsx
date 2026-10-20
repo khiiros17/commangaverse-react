@@ -4,7 +4,8 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import { obtenerProductos } from './data/productosService';
 import { obtenerCarrito, guardarCarrito } from './data/carritoService';
-import { agregarItem, cambiarCantidad, quitarItem, contarUnidades } from './utils/carrito';   // ⬅️ NUEVO
+import { obtenerSesion, cerrarSesion } from './data/sesionService';                        // ⬅️ NUEVO
+import { agregarItem, cambiarCantidad, quitarItem, contarUnidades } from './utils/carrito';
 
 // ===== PÁGINAS =====
 import Home from './pages/Home';
@@ -27,20 +28,31 @@ function App() {
   // ===== ESTADO =====
   const [productos] = useState(() => obtenerProductos());
   const [carrito, setCarrito] = useState(() => obtenerCarrito());
+  const [usuario, setUsuario] = useState(() => obtenerSesion());            // ⬅️ NUEVO: quién inició sesión
 
   // Guarda el carrito en localStorage cada vez que cambia
   useEffect(() => {
     guardarCarrito(carrito);
   }, [carrito]);
 
-  // ⬅️ NUEVO: busca el stock de un producto (para no superarlo)
+  // ===== SESIÓN =====
+  // ⬅️ NUEVO
+  function manejarLogin(usuarioIngresado) {
+    setUsuario(usuarioIngresado);
+  }
+
+  function manejarLogout() {
+    cerrarSesion();
+    setUsuario(null);
+  }
+
+  // Busca el stock de un producto (para no superarlo)
   function stockDe(id) {
     const producto = productos.find(p => p.id === id);
     return producto ? producto.stock : 0;
   }
 
   // ===== ACCIONES DEL CARRITO =====
-  // ⬅️ CAMBIO: ahora usan las funciones de utils/carrito.js
   function agregarAlCarrito(id) {
     setCarrito(agregarItem(carrito, id, stockDe(id)));
   }
@@ -61,7 +73,8 @@ function App() {
 
   return (
     <div className="d-flex flex-column min-vh-100">
-      <Header cantidadCarrito={cantidadTotal} />
+      {/* ⬅️ CAMBIO: el Header recibe el usuario y la función para cerrar sesión */}
+      <Header cantidadCarrito={cantidadTotal} usuario={usuario} onLogout={manejarLogout} />
 
       <main className="flex-grow-1">
         <Routes>
@@ -70,7 +83,6 @@ function App() {
           <Route path="/producto/:id" element={<DetalleProducto productos={productos} onAgregar={agregarAlCarrito} />} />
           <Route path="/categorias" element={<Categorias />} />
           <Route path="/ofertas" element={<Ofertas />} />
-          {/* ⬅️ CAMBIO: el carrito ahora recibe sus datos y acciones */}
           <Route
             path="/carrito"
             element={
@@ -86,7 +98,8 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/pago-exitoso" element={<PagoExitoso />} />
           <Route path="/pago-error" element={<PagoError />} />
-          <Route path="/login" element={<Login />} />
+          {/* ⬅️ CAMBIO: Login recibe la función para avisar que alguien inició sesión */}
+          <Route path="/login" element={<Login onLogin={manejarLogin} />} />
           <Route path="/registro" element={<Registro />} />
           <Route path="/nosotros" element={<Nosotros />} />
           <Route path="/blogs" element={<Blogs />} />

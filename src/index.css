@@ -80,3 +80,28 @@ body {
 .resumen-carrito {
   border: 2px solid var(--color-naranjo);
 }
+
+
+/* ===== FORMULARIOS ===== */
+.contenedor-formulario {
+  max-width: 480px;
+}
+
+.contenedor-formulario-ancho {
+  max-width: 760px;
+}
+
+.tarjeta-formulario {
+  border: 2px solid var(--color-naranjo);
+}
+
+/* Campos oscuros, para que combinen con la tarjeta */
+.tarjeta-formulario .form-control,
+.tarjeta-formulario .form-select {
+  background-color: #2a2a2a;
+  color: white;
+}
+
+.tarjeta-formulario .form-control::placeholder {
+  color: #888;
+}
