@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { productosIniciales } from './data/productos';
+import { obtenerProductos } from './data/productosService';
+import { obtenerCarrito, guardarCarrito } from './data/carritoService';
 
 // ===== PÁGINAS =====
 import Home from './pages/Home';
@@ -22,9 +23,19 @@ import Contacto from './pages/Contacto';
 import NoEncontrada from './pages/NoEncontrada';
 
 function App() {
-  // ===== ESTADO DEL CARRITO =====
-  const [carrito, setCarrito] = useState([]);
+  // ===== ESTADO =====
 
+  const [productos] = useState(() => obtenerProductos());
+
+
+  const [carrito, setCarrito] = useState(() => obtenerCarrito());
+
+
+  useEffect(() => {
+    guardarCarrito(carrito);
+  }, [carrito]);
+
+  // ===== AGREGAR AL CARRITO =====
   function agregarAlCarrito(id) {
     const existe = carrito.find(item => item.id === id);
     if (existe) {
@@ -46,9 +57,10 @@ function App() {
 
       <main className="flex-grow-1">
         <Routes>
-          <Route path="/" element={<Home productos={productosIniciales} onAgregar={agregarAlCarrito} />} />
-          <Route path="/productos" element={<Productos productos={productosIniciales} onAgregar={agregarAlCarrito} />} />
-          <Route path="/producto/:id" element={<DetalleProducto productos={productosIniciales} onAgregar={agregarAlCarrito} />} />
+          {/* ⬅️ CAMBIO: ahora se pasa "productos" (del servicio) en vez de "productosIniciales" */}
+          <Route path="/" element={<Home productos={productos} onAgregar={agregarAlCarrito} />} />
+          <Route path="/productos" element={<Productos productos={productos} onAgregar={agregarAlCarrito} />} />
+          <Route path="/producto/:id" element={<DetalleProducto productos={productos} onAgregar={agregarAlCarrito} />} />
           <Route path="/categorias" element={<Categorias />} />
           <Route path="/ofertas" element={<Ofertas />} />
           <Route path="/carrito" element={<Carrito />} />
@@ -60,8 +72,6 @@ function App() {
           <Route path="/nosotros" element={<Nosotros />} />
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/contacto" element={<Contacto />} />
-
-          {/* Cualquier otra dirección → página 404 */}
           <Route path="*" element={<NoEncontrada />} />
         </Routes>
       </main>
