@@ -1,0 +1,13 @@
+/* ===== ESTILOS GENERALES DE COMMANGAVERSE ===== */
+:root {
+  --color-fondo: #121212;
+  --color-tarjeta: #1f1f1f;
+  --color-naranjo: #d35f20;
+  --color-amarillo: #ffd60a;
+}
+
+body {
+  background-color: var(--color-fondo);
+  color: white;
+  min-height: 100vh;
+}
