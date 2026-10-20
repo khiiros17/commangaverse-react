@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { obtenerProductos, crearProducto, actualizarProducto, eliminarProducto } from './data/productosService';   // ⬅️ CAMBIO
+import { obtenerProductos, crearProducto, actualizarProducto, eliminarProducto } from './data/productosService';
 import { obtenerCarrito, guardarCarrito } from './data/carritoService';
-import { obtenerSesion, cerrarSesion } from './data/sesionService';
+import { obtenerSesion, cerrarSesion, actualizarSesion } from './data/sesionService';   // ⬅️ CAMBIO
 import { procesarCompra } from './data/ordenesService';
 import { agregarItem, cambiarCantidad, quitarItem, contarUnidades } from './utils/carrito';
 
@@ -26,12 +26,19 @@ import DetalleBlog from './pages/DetalleBlog';
 import Contacto from './pages/Contacto';
 import NoEncontrada from './pages/NoEncontrada';
 
-// ===== PANEL ADMIN ===== ⬅️ NUEVO
+// ===== PANEL ADMIN =====
 import RutaAdmin from './components/RutaAdmin';
 import LayoutAdmin from './pages/admin/LayoutAdmin';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminProductos from './pages/admin/AdminProductos';
 import FormularioProducto from './pages/admin/FormularioProducto';
+import AdminOrdenes from './pages/admin/AdminOrdenes';                  // ⬅️ NUEVO
+import AdminDetalleOrden from './pages/admin/AdminDetalleOrden';        // ⬅️ NUEVO
+import AdminUsuarios from './pages/admin/AdminUsuarios';                // ⬅️ NUEVO
+import FormularioUsuario from './pages/admin/FormularioUsuario';        // ⬅️ NUEVO
+import HistorialUsuario from './pages/admin/HistorialUsuario';          // ⬅️ NUEVO
+import AdminReportes from './pages/admin/AdminReportes';                // ⬅️ NUEVO
+import AdminPerfil from './pages/admin/AdminPerfil';                    // ⬅️ NUEVO
 
 function App() {
   // ===== ESTADO =====
@@ -52,6 +59,11 @@ function App() {
   function manejarLogout() {
     cerrarSesion();
     setUsuario(null);
+  }
+
+  // ⬅️ NUEVO: cuando el usuario conectado edita sus propios datos
+  function refrescarSesion(usuarioActualizado) {
+    setUsuario(actualizarSesion(usuarioActualizado));
   }
 
   // Busca el stock de un producto (para no superarlo)
@@ -91,7 +103,7 @@ function App() {
     return orden;
   }
 
-  // ===== ADMIN: PRODUCTOS ===== ⬅️ NUEVO
+  // ===== ADMIN: PRODUCTOS =====
   // Crea (si no hay id) o actualiza (si hay id), y refresca la lista
   function guardarProducto(datosProducto, id) {
     if (id === null) {
@@ -155,12 +167,21 @@ function App() {
           <Route path="/blogs/:id" element={<DetalleBlog />} />
           <Route path="/contacto" element={<Contacto />} />
 
-          {/* ===== PANEL ADMIN (rutas anidadas y protegidas) ===== ⬅️ NUEVO */}
+          {/* ===== PANEL ADMIN (rutas anidadas y protegidas) ===== */}
           <Route path="/admin" element={<RutaAdmin usuario={usuario}><LayoutAdmin /></RutaAdmin>}>
             <Route index element={<AdminDashboard productos={productos} />} />
             <Route path="productos" element={<AdminProductos productos={productos} onEliminar={eliminarProductoAdmin} />} />
             <Route path="productos/nuevo" element={<FormularioProducto key="nuevo" productos={productos} onGuardar={guardarProducto} />} />
             <Route path="productos/editar/:id" element={<FormularioProducto key="editar" productos={productos} onGuardar={guardarProducto} />} />
+            {/* ⬅️ NUEVO: órdenes, usuarios, reportes y perfil */}
+            <Route path="ordenes" element={<AdminOrdenes />} />
+            <Route path="ordenes/:id" element={<AdminDetalleOrden />} />
+            <Route path="usuarios" element={<AdminUsuarios usuarioSesion={usuario} />} />
+            <Route path="usuarios/nuevo" element={<FormularioUsuario key="nuevo" usuarioSesion={usuario} onSesionActualizada={refrescarSesion} />} />
+            <Route path="usuarios/editar/:run" element={<FormularioUsuario key="editar" usuarioSesion={usuario} onSesionActualizada={refrescarSesion} />} />
+            <Route path="usuarios/:run/historial" element={<HistorialUsuario />} />
+            <Route path="reportes" element={<AdminReportes productos={productos} />} />
+            <Route path="perfil" element={<AdminPerfil usuarioSesion={usuario} />} />
           </Route>
 
           <Route path="*" element={<NoEncontrada />} />

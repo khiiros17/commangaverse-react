@@ -14,6 +14,11 @@ function LayoutAdmin() {
                     <Nav className="flex-column">
                         <Nav.Link as={NavLink} to="/admin" end>📊 Dashboard</Nav.Link>
                         <Nav.Link as={NavLink} to="/admin/productos">📦 Productos</Nav.Link>
+                        {/* ⬅️ NUEVO */}
+                        <Nav.Link as={NavLink} to="/admin/ordenes">🧾 Órdenes</Nav.Link>
+                        <Nav.Link as={NavLink} to="/admin/usuarios">👥 Usuarios</Nav.Link>
+                        <Nav.Link as={NavLink} to="/admin/reportes">📈 Reportes</Nav.Link>
+                        <Nav.Link as={NavLink} to="/admin/perfil">🙂 Mi perfil</Nav.Link>
                     </Nav>
                     <hr />
                     <Link to="/" className="small">← Volver a la tienda</Link>

@@ -19,6 +19,15 @@ export function obtenerSesion() {
     }
 }
 
+/** Guarda en la sesión una copia del usuario SIN la contraseña, y la devuelve. */
+export function actualizarSesion(usuario) {
+    const sesion = { ...usuario };
+    delete sesion.contrasena;
+
+    sessionStorage.setItem(CLAVE, JSON.stringify(sesion));
+    return sesion;
+}
+
 /**
  * Revisa el correo y la contraseña.
  * Si son correctos, guarda la sesión y devuelve el usuario (SIN la contraseña).
@@ -31,12 +40,7 @@ export function iniciarSesion(correo, contrasena) {
         return null;
     }
 
-    // Nunca se guarda la contraseña en la sesión
-    const sesion = { ...usuario };
-    delete sesion.contrasena;
-
-    sessionStorage.setItem(CLAVE, JSON.stringify(sesion));
-    return sesion;
+    return actualizarSesion(usuario);
 }
 
 /** Cierra la sesión. */

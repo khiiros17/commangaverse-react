@@ -192,3 +192,12 @@ body {
     padding-bottom: 12px;
   }
 }
+
+/* Filtro de órdenes y tarjeta de perfil: que no ocupen todo el ancho */
+.filtro-admin {
+  max-width: 280px;
+}
+
+.perfil {
+  max-width: 600px;
+}
