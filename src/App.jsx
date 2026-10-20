@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import { obtenerProductos } from './data/productosService';
 import { obtenerCarrito, guardarCarrito } from './data/carritoService';
 import { obtenerSesion, cerrarSesion } from './data/sesionService';
+import { procesarCompra } from './data/ordenesService';                                    // ⬅️ NUEVO
 import { agregarItem, cambiarCantidad, quitarItem, contarUnidades } from './utils/carrito';
 
 // ===== PÁGINAS =====
@@ -21,13 +22,13 @@ import Login from './pages/Login';
 import Registro from './pages/Registro';
 import Nosotros from './pages/Nosotros';
 import Blogs from './pages/Blogs';
-import DetalleBlog from './pages/DetalleBlog';                                             // ⬅️ NUEVO
+import DetalleBlog from './pages/DetalleBlog';
 import Contacto from './pages/Contacto';
 import NoEncontrada from './pages/NoEncontrada';
 
 function App() {
   // ===== ESTADO =====
-  const [productos] = useState(() => obtenerProductos());
+  const [productos, setProductos] = useState(() => obtenerProductos());                 // ⬅️ CAMBIO: ahora con setProductos
   const [carrito, setCarrito] = useState(() => obtenerCarrito());
   const [usuario, setUsuario] = useState(() => obtenerSesion());
 
@@ -69,6 +70,20 @@ function App() {
     setCarrito([]);
   }
 
+  // ===== COMPRA ===== ⬅️ NUEVO
+  // Procesa el pago y devuelve la orden. Si se pagó, refresca el stock y vacía el carrito.
+  function confirmarCompra(cliente, tarjeta) {
+    const orden = procesarCompra(carrito, productos, cliente, tarjeta);
+
+    if (orden.estado === 'Pagada') {
+      setProductos(obtenerProductos());   // vuelve a leer los productos con el stock nuevo
+      setCarrito([]);
+    }
+    // Si fue rechazada, el carrito NO se toca
+
+    return orden;
+  }
+
   const cantidadTotal = contarUnidades(carrito);
 
   return (
@@ -80,7 +95,6 @@ function App() {
           <Route path="/" element={<Home productos={productos} onAgregar={agregarAlCarrito} />} />
           <Route path="/productos" element={<Productos productos={productos} onAgregar={agregarAlCarrito} />} />
           <Route path="/producto/:id" element={<DetalleProducto productos={productos} onAgregar={agregarAlCarrito} />} />
-          {/* ⬅️ CAMBIO: Categorías (con y sin nombre) y Ofertas reciben los productos */}
           <Route path="/categorias" element={<Categorias productos={productos} onAgregar={agregarAlCarrito} />} />
           <Route path="/categorias/:nombre" element={<Categorias productos={productos} onAgregar={agregarAlCarrito} />} />
           <Route path="/ofertas" element={<Ofertas productos={productos} onAgregar={agregarAlCarrito} />} />
@@ -96,14 +110,26 @@ function App() {
               />
             }
           />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/pago-exitoso" element={<PagoExitoso />} />
-          <Route path="/pago-error" element={<PagoError />} />
+          {/* ⬅️ CAMBIO: Checkout recibe todo lo necesario para comprar */}
+          <Route
+            path="/checkout"
+            element={
+              <Checkout
+                carrito={carrito}
+                productos={productos}
+                usuario={usuario}
+                onConfirmarCompra={confirmarCompra}
+              />
+            }
+          />
+          {/* ⬅️ CAMBIO: ahora llevan el número de la orden */}
+          <Route path="/pago-exitoso/:id" element={<PagoExitoso />} />
+          <Route path="/pago-error/:id" element={<PagoError />} />
           <Route path="/login" element={<Login onLogin={manejarLogin} />} />
           <Route path="/registro" element={<Registro />} />
           <Route path="/nosotros" element={<Nosotros />} />
           <Route path="/blogs" element={<Blogs />} />
-          <Route path="/blogs/:id" element={<DetalleBlog />} />                                {/* ⬅️ NUEVO */}
+          <Route path="/blogs/:id" element={<DetalleBlog />} />
           <Route path="/contacto" element={<Contacto />} />
           <Route path="*" element={<NoEncontrada />} />
         </Routes>

@@ -145,3 +145,19 @@ body {
   height: 220px;
   object-fit: cover;
 }
+
+
+/* ===== BOLETA (al imprimir) ===== */
+@media print {
+
+  .navbar,
+  footer,
+  .no-imprimir {
+    display: none !important;
+    /* no se imprime el menú, el pie ni los botones */
+  }
+
+  body {
+    background: white;
+  }
+}
