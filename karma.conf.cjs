@@ -1,11 +1,10 @@
-// ============================================================
-//  CONFIGURACIÓN DE KARMA
-//  Karma ejecuta las pruebas de Jasmine en un navegador real.
-// ============================================================
+
+//  KARMA
+//  Karma ejecuta las pruebas de Jasmine en un navegador
+
 const fs = require('fs');
 
-// ⬅️ NUEVO: si no hay Google Chrome instalado, usa Microsoft Edge
-// (Edge está hecho con Chromium, el mismo motor de Chrome)
+
 if (!process.env.CHROME_BIN) {
     const rutasChrome = [
         'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',

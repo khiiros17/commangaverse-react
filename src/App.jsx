@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import { obtenerProductos } from './data/productosService';
 import { obtenerCarrito, guardarCarrito } from './data/carritoService';
+import { agregarItem, cambiarCantidad, quitarItem, contarUnidades } from './utils/carrito';   // ⬅️ NUEVO
 
 // ===== PÁGINAS =====
 import Home from './pages/Home';
@@ -24,32 +25,39 @@ import NoEncontrada from './pages/NoEncontrada';
 
 function App() {
   // ===== ESTADO =====
-
   const [productos] = useState(() => obtenerProductos());
-
-
   const [carrito, setCarrito] = useState(() => obtenerCarrito());
 
-
+  // Guarda el carrito en localStorage cada vez que cambia
   useEffect(() => {
     guardarCarrito(carrito);
   }, [carrito]);
 
-  // ===== AGREGAR AL CARRITO =====
-  function agregarAlCarrito(id) {
-    const existe = carrito.find(item => item.id === id);
-    if (existe) {
-      setCarrito(
-        carrito.map(item =>
-          item.id === id ? { ...item, cantidad: item.cantidad + 1 } : item
-        )
-      );
-    } else {
-      setCarrito([...carrito, { id: id, cantidad: 1 }]);
-    }
+  // ⬅️ NUEVO: busca el stock de un producto (para no superarlo)
+  function stockDe(id) {
+    const producto = productos.find(p => p.id === id);
+    return producto ? producto.stock : 0;
   }
 
-  const cantidadTotal = carrito.reduce((suma, item) => suma + item.cantidad, 0);
+  // ===== ACCIONES DEL CARRITO =====
+  // ⬅️ CAMBIO: ahora usan las funciones de utils/carrito.js
+  function agregarAlCarrito(id) {
+    setCarrito(agregarItem(carrito, id, stockDe(id)));
+  }
+
+  function cambiarCantidadCarrito(id, cambio) {
+    setCarrito(cambiarCantidad(carrito, id, cambio, stockDe(id)));
+  }
+
+  function quitarDelCarrito(id) {
+    setCarrito(quitarItem(carrito, id));
+  }
+
+  function vaciarCarrito() {
+    setCarrito([]);
+  }
+
+  const cantidadTotal = contarUnidades(carrito);
 
   return (
     <div className="d-flex flex-column min-vh-100">
@@ -57,13 +65,24 @@ function App() {
 
       <main className="flex-grow-1">
         <Routes>
-          {/* ⬅️ CAMBIO: ahora se pasa "productos" (del servicio) en vez de "productosIniciales" */}
           <Route path="/" element={<Home productos={productos} onAgregar={agregarAlCarrito} />} />
           <Route path="/productos" element={<Productos productos={productos} onAgregar={agregarAlCarrito} />} />
           <Route path="/producto/:id" element={<DetalleProducto productos={productos} onAgregar={agregarAlCarrito} />} />
           <Route path="/categorias" element={<Categorias />} />
           <Route path="/ofertas" element={<Ofertas />} />
-          <Route path="/carrito" element={<Carrito />} />
+          {/* ⬅️ CAMBIO: el carrito ahora recibe sus datos y acciones */}
+          <Route
+            path="/carrito"
+            element={
+              <Carrito
+                carrito={carrito}
+                productos={productos}
+                onCambiarCantidad={cambiarCantidadCarrito}
+                onQuitar={quitarDelCarrito}
+                onVaciar={vaciarCarrito}
+              />
+            }
+          />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/pago-exitoso" element={<PagoExitoso />} />
           <Route path="/pago-error" element={<PagoError />} />

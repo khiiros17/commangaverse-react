@@ -67,3 +67,16 @@ body {
 .breadcrumb-item.active {
   color: #aaa;
 }
+
+
+/* ===== CARRITO ===== */
+.miniatura {
+  width: 45px;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.resumen-carrito {
+  border: 2px solid var(--color-naranjo);
+}
