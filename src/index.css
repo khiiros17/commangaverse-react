@@ -35,3 +35,35 @@ body {
   font-size: 1.3rem;
   font-weight: bold;
 }
+
+
+
+/* ===== BANNER DEL HOME ===== */
+.banner {
+  background-color: var(--color-tarjeta);
+  border: 2px solid var(--color-naranjo);
+}
+
+.titulo-principal {
+  font-size: clamp(3rem, 12vw, 7rem);
+  /* tipografía fluida, ¡como en la Evaluación 1! */
+  font-weight: 900;
+  color: var(--color-naranjo);
+  line-height: 0.9;
+}
+
+/* ===== DETALLE DEL PRODUCTO ===== */
+.detalle-imagen {
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border: 3px solid var(--color-naranjo);
+}
+
+/* El breadcrumb de Bootstrap viene con colores para fondo claro */
+.breadcrumb-item a {
+  color: var(--color-amarillo);
+}
+
+.breadcrumb-item.active {
+  color: #aaa;
+}
