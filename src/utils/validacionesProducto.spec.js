@@ -1,6 +1,4 @@
-// ============================================================
-//  PRUEBAS: validaciones de productos (panel admin)
-// ============================================================
+// pruebas unitarias de productos validaciones
 import {
     validarCodigo, validarPrecio, validarPrecioOferta, validarStock,
     validarProducto, codigoRepetido, esCritico
@@ -21,14 +19,14 @@ describe('Validaciones de productos', () => {
     });
 
     it('debería exigir que la oferta sea menor que el precio normal', () => {
-        expect(validarPrecioOferta('', 9990)).toBe('');                 // opcional
+        expect(validarPrecioOferta('', 9990)).toBe('');
         expect(validarPrecioOferta('9990', 9990)).toBe('La oferta debe ser menor que el precio normal.');
         expect(validarPrecioOferta('7990', 9990)).toBe('');
     });
 
     it('debería aceptar solo stock entero y no negativo', () => {
         expect(validarStock('')).toBe('El stock es obligatorio.');
-        expect(validarStock('', false)).toBe('');                      // stock crítico es opcional
+        expect(validarStock('', false)).toBe('');
         expect(validarStock('2.5')).toBe('Debe ser un número entero mayor o igual a 0.');
         expect(validarStock('-1')).toBe('Debe ser un número entero mayor o igual a 0.');
         expect(validarStock('10')).toBe('');
@@ -48,8 +46,8 @@ describe('Validaciones de productos', () => {
     it('debería detectar códigos repetidos, sin contar al mismo producto', () => {
         const productos = [{ id: 1, codigo: 'MAN-001' }, { id: 2, codigo: 'COM-001' }];
 
-        expect(codigoRepetido(productos, 'man-001')).toBeTrue();       // ignora mayúsculas
-        expect(codigoRepetido(productos, 'MAN-001', 1)).toBeFalse();   // es el mismo producto (editando)
+        expect(codigoRepetido(productos, 'man-001')).toBeTrue();
+        expect(codigoRepetido(productos, 'MAN-001', 1)).toBeFalse();
         expect(codigoRepetido(productos, 'MAN-999')).toBeFalse();
     });
 
@@ -57,7 +55,7 @@ describe('Validaciones de productos', () => {
         expect(esCritico({ stock: 3, stockCritico: 5 })).toBeTrue();
         expect(esCritico({ stock: 5, stockCritico: 5 })).toBeTrue();
         expect(esCritico({ stock: 9, stockCritico: 5 })).toBeFalse();
-        expect(esCritico({ stock: 0, stockCritico: null })).toBeFalse();   // sin stock crítico definido
+        expect(esCritico({ stock: 0, stockCritico: null })).toBeFalse();
     });
 
 });

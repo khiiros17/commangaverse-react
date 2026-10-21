@@ -18,11 +18,7 @@ const DATOS_VACIOS = {
     fechaNacimiento: '', tipo: 'Cliente', region: '', comuna: '', direccion: ''
 };
 
-// ============================================================
-//  UN SOLO FORMULARIO PARA CREAR Y EDITAR USUARIOS
-//  /admin/usuarios/nuevo              → crear
-//  /admin/usuarios/editar/111111111   → editar
-// ============================================================
+
 function FormularioUsuario({ usuarioSesion, onSesionActualizada }) {
     const { run } = useParams();
     const navigate = useNavigate();
@@ -31,8 +27,7 @@ function FormularioUsuario({ usuarioSesion, onSesionActualizada }) {
     const usuarioActual = editando ? obtenerUsuarioPorRun(run) : null;
     const esYo = editando && usuarioSesion && usuarioSesion.run === run;
 
-    // ===== ESTADO =====
-    // Al editar, la contraseña parte vacía: si se deja así, se mantiene la anterior
+
     const [datos, setDatos] = useState(() =>
         usuarioActual ? { ...DATOS_VACIOS, ...usuarioActual, contrasena: '' } : DATOS_VACIOS
     );
@@ -75,7 +70,7 @@ function FormularioUsuario({ usuarioSesion, onSesionActualizada }) {
             nuevosErrores[campo] = validarCampo(campo, datos[campo]);
         });
 
-        // Regla de negocio: correo único (sin contar al mismo usuario)
+
         const duenoCorreo = obtenerUsuarioPorCorreo(datos.correo.trim());
         if (!nuevosErrores.correo && duenoCorreo && duenoCorreo.run !== run) {
             nuevosErrores.correo = 'Ya existe otro usuario con este correo.';
@@ -97,20 +92,20 @@ function FormularioUsuario({ usuarioSesion, onSesionActualizada }) {
             direccion: datos.direccion.trim()
         };
 
-        // La contraseña solo se guarda si se escribió una
+
         if (datos.contrasena !== '') {
             datosUsuario.contrasena = datos.contrasena;
         }
 
         if (editando) {
             const actualizado = actualizarUsuario(run, datosUsuario);
-            // Si me edité a mí mismo, se actualiza la sesión (por ejemplo, el nombre del Header)
+
             if (esYo) {
                 onSesionActualizada(actualizado);
             }
         } else {
             const nuevo = crearUsuario({ ...datosUsuario, run: datos.run.trim() });
-            // Regla de negocio: RUN único (crearUsuario devuelve null si ya existe)
+
             if (!nuevo) {
                 setErrores({ ...nuevosErrores, run: 'Ya existe un usuario con este RUN.' });
                 return;
@@ -140,7 +135,7 @@ function FormularioUsuario({ usuarioSesion, onSesionActualizada }) {
                     <Form noValidate onSubmit={manejarEnvio}>
                         <Row>
                             <Col md={6}>
-                                {/* El RUN identifica al usuario: no se puede cambiar al editar */}
+
                                 <Form.Group className="mb-3" controlId="run">
                                     <Form.Label>RUN</Form.Label>
                                     <Form.Control name="run" value={datos.run} onChange={manejarCambio}

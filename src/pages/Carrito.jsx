@@ -7,7 +7,7 @@ function Carrito({ carrito, productos, onCambiarCantidad, onQuitar, onVaciar }) 
     const lineas = detalleCarrito(carrito, productos);
     const total = calcularTotal(carrito, productos);
 
-    // ===== CARRITO VACÍO =====
+    // carrito vacio
     if (lineas.length === 0) {
         return (
             <Container className="my-5">
@@ -19,13 +19,13 @@ function Carrito({ carrito, productos, onCambiarCantidad, onQuitar, onVaciar }) 
         );
     }
 
-    // ===== CARRITO CON PRODUCTOS =====
+    // carrito con productos
     return (
         <Container className="my-5">
             <h1 className="text-warning mb-4">Carrito de compras</h1>
 
             <Row className="g-4">
-                {/* Tabla de productos */}
+                {/* tabla de producto */}
                 <Col lg={8}>
                     <Table variant="dark" responsive className="align-middle">
                         <thead>
@@ -81,7 +81,7 @@ function Carrito({ carrito, productos, onCambiarCantidad, onQuitar, onVaciar }) 
                     </Button>
                 </Col>
 
-                {/* Resumen */}
+                {/* resumen */}
                 <Col lg={4}>
                     <Card bg="dark" text="white" className="resumen-carrito">
                         <Card.Body>

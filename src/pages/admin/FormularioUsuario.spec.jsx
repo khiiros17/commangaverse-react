@@ -1,6 +1,4 @@
-// ============================================================
-//  PRUEBAS: formulario para crear y editar usuarios
-// ============================================================
+// pruebas unitarias para la pagina admin.
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import FormularioUsuario from './FormularioUsuario';
@@ -26,7 +24,7 @@ function escribir(etiqueta, texto) {
     fireEvent.change(screen.getByLabelText(etiqueta), { target: { value: texto } });
 }
 
-// Llena un usuario nuevo válido
+
 function llenarUsuarioValido(run, correo) {
     escribir('RUN', run);
     escribir('Nombre', 'Ana');
@@ -41,7 +39,7 @@ function llenarUsuarioValido(run, correo) {
 describe('FormularioUsuario', () => {
 
     beforeEach(() => {
-        localStorage.clear();      // solo existe el admin inicial
+        localStorage.clear();
     });
 
     it('debería crear un usuario válido y volver al listado', () => {

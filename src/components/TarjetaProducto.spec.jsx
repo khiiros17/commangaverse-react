@@ -1,14 +1,12 @@
-// ============================================================
-//  PRUEBAS: componente TarjetaProducto
-// ============================================================
+// pruebas unitarias de tarjeta con los productos.
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import TarjetaProducto from './TarjetaProducto';
 
-// Imagen de 1x1 pixel, para no depender de archivos reales en las pruebas
+
 const IMAGEN_PRUEBA = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
 
-// Datos de prueba con nombres claros
+
 const comicDePrueba = {
     id: 7,
     nombre: 'Cómic de prueba',
@@ -17,7 +15,7 @@ const comicDePrueba = {
     imagen: IMAGEN_PRUEBA
 };
 
-// Función auxiliar: dibuja la tarjeta dentro de un router de prueba
+
 function dibujarTarjeta(onAgregar) {
     return render(
         <MemoryRouter>
@@ -28,7 +26,7 @@ function dibujarTarjeta(onAgregar) {
 
 describe('TarjetaProducto', () => {
 
-    // PRUEBA DE PROPS: muestra los datos que recibe
+
     it('debería mostrar el nombre, la categoría y el precio del producto', () => {
         dibujarTarjeta(() => { });
 
@@ -37,7 +35,7 @@ describe('TarjetaProducto', () => {
         expect(screen.getByText('$12.990')).toBeTruthy();
     });
 
-    // PRUEBA DE EVENTOS + MOCK: el botón llama a la función que recibe
+
     it('debería llamar a onAgregar con el id del producto al hacer clic', () => {
         const espia = jasmine.createSpy('onAgregar');
         dibujarTarjeta(espia);
@@ -48,7 +46,7 @@ describe('TarjetaProducto', () => {
         expect(espia).toHaveBeenCalledWith(7);
     });
 
-    // PRUEBA DE PROPS: el link lleva al detalle correcto
+
     it('debería tener un link al detalle del producto', () => {
         dibujarTarjeta(() => { });
 

@@ -2,7 +2,7 @@ import { Container, Card, Button, Alert } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import { obtenerOrdenPorId } from '../data/ordenesService';
 import ResumenOrden from '../components/ResumenOrden';
-
+// pagina de error de pago en caso del que fuera rechazado.
 function PagoError() {
     const { id } = useParams();
     const orden = obtenerOrdenPorId(id);
@@ -19,7 +19,7 @@ function PagoError() {
     return (
         <Container className="my-5 contenedor-formulario-ancho">
             <Alert variant="danger">
-                <h1 className="h3 mb-1">❌ No se pudo realizar el pago</h1>
+                <h1 className="h3 mb-1"> No se pudo realizar el pago</h1>
                 <p className="mb-0">
                     El pago de la orden #{orden.id} fue rechazado. No se hizo ningún cobro y
                     <strong> tu carrito sigue guardado</strong>.

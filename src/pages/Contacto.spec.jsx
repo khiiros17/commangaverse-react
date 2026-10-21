@@ -1,12 +1,10 @@
-// ============================================================
-//  PRUEBAS: página Contacto
-// ============================================================
+// pruebas unitarias para la pagina de contacto
 import { render, screen, fireEvent } from '@testing-library/react';
 import Contacto from './Contacto';
 
 describe('Página Contacto', () => {
 
-    // PRUEBA DE ESTADO: el contador cambia al escribir
+
     it('debería actualizar el contador de caracteres al escribir', () => {
         render(<Contacto />);
 
@@ -15,7 +13,7 @@ describe('Página Contacto', () => {
         expect(screen.getByText('5 / 500')).toBeTruthy();
     });
 
-    // EVENTO: enviar vacío muestra los errores obligatorios
+
     it('debería mostrar los errores al enviar el formulario vacío', () => {
         render(<Contacto />);
 

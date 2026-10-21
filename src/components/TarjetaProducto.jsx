@@ -1,6 +1,6 @@
 import { Card, Button, Badge } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import Precio from './Precio';                                   // ⬅️ NUEVO
+import Precio from './Precio';
 
 function TarjetaProducto({ producto, onAgregar }) {
     return (
@@ -20,7 +20,7 @@ function TarjetaProducto({ producto, onAgregar }) {
                     </Link>
                 </Card.Title>
 
-                {/* ⬅️ CAMBIO: ahora usa el componente Precio (muestra ofertas) */}
+
                 <Precio producto={producto} />
 
                 <Button

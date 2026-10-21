@@ -1,14 +1,15 @@
+// aqui van las importaciones de react y react-router-dom
 import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { obtenerProductos, crearProducto, actualizarProducto, eliminarProducto } from './data/productosService';
 import { obtenerCarrito, guardarCarrito } from './data/carritoService';
-import { obtenerSesion, cerrarSesion, actualizarSesion } from './data/sesionService';   // ⬅️ CAMBIO
+import { obtenerSesion, cerrarSesion, actualizarSesion } from './data/sesionService';
 import { procesarCompra } from './data/ordenesService';
 import { agregarItem, cambiarCantidad, quitarItem, contarUnidades } from './utils/carrito';
 
-// ===== PÁGINAS =====
+//  aqui van las importaciones de las paginas.
 import Home from './pages/Home';
 import Productos from './pages/Productos';
 import DetalleProducto from './pages/DetalleProducto';
@@ -26,32 +27,32 @@ import DetalleBlog from './pages/DetalleBlog';
 import Contacto from './pages/Contacto';
 import NoEncontrada from './pages/NoEncontrada';
 
-// ===== PANEL ADMIN =====
+// paginas del admin.
 import RutaAdmin from './components/RutaAdmin';
 import LayoutAdmin from './pages/admin/LayoutAdmin';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminProductos from './pages/admin/AdminProductos';
 import FormularioProducto from './pages/admin/FormularioProducto';
-import AdminOrdenes from './pages/admin/AdminOrdenes';                  // ⬅️ NUEVO
-import AdminDetalleOrden from './pages/admin/AdminDetalleOrden';        // ⬅️ NUEVO
-import AdminUsuarios from './pages/admin/AdminUsuarios';                // ⬅️ NUEVO
-import FormularioUsuario from './pages/admin/FormularioUsuario';        // ⬅️ NUEVO
-import HistorialUsuario from './pages/admin/HistorialUsuario';          // ⬅️ NUEVO
-import AdminReportes from './pages/admin/AdminReportes';                // ⬅️ NUEVO
-import AdminPerfil from './pages/admin/AdminPerfil';                    // ⬅️ NUEVO
+import AdminOrdenes from './pages/admin/AdminOrdenes';
+import AdminDetalleOrden from './pages/admin/AdminDetalleOrden';
+import AdminUsuarios from './pages/admin/AdminUsuarios';
+import FormularioUsuario from './pages/admin/FormularioUsuario';
+import HistorialUsuario from './pages/admin/HistorialUsuario';
+import AdminReportes from './pages/admin/AdminReportes';
+import AdminPerfil from './pages/admin/AdminPerfil';
 
 function App() {
-  // ===== ESTADO =====
+  // estado de la app productos, carrito y usuario conectado
   const [productos, setProductos] = useState(() => obtenerProductos());
   const [carrito, setCarrito] = useState(() => obtenerCarrito());
   const [usuario, setUsuario] = useState(() => obtenerSesion());
 
-  // Guarda el carrito en localStorage cada vez que cambia
+  // para guardar el carrito cada vez que cambie.
   useEffect(() => {
     guardarCarrito(carrito);
   }, [carrito]);
 
-  // ===== SESIÓN =====
+  // para guardar la sesion del usuario cada vez que cambie.
   function manejarLogin(usuarioIngresado) {
     setUsuario(usuarioIngresado);
   }
@@ -61,18 +62,18 @@ function App() {
     setUsuario(null);
   }
 
-  // ⬅️ NUEVO: cuando el usuario conectado edita sus propios datos
+  // pra actualizar la sesiond del usuario.
   function refrescarSesion(usuarioActualizado) {
     setUsuario(actualizarSesion(usuarioActualizado));
   }
 
-  // Busca el stock de un producto (para no superarlo)
+  // Busca el stock de un producto y asi no se pueda superar.
   function stockDe(id) {
     const producto = productos.find(p => p.id === id);
     return producto ? producto.stock : 0;
   }
 
-  // ===== ACCIONES DEL CARRITO =====
+  // para agregar, cambiar cantidad, quitar y vaciar el carrito.
   function agregarAlCarrito(id) {
     setCarrito(agregarItem(carrito, id, stockDe(id)));
   }
@@ -89,22 +90,22 @@ function App() {
     setCarrito([]);
   }
 
-  // ===== COMPRA =====
-  // Procesa el pago y devuelve la orden. Si se pagó, refresca el stock y vacía el carrito.
+  // para procesar el pago y devolver la orden. Si se pagó, refresca el stock y vacía el carrito.
+
   function confirmarCompra(cliente, tarjeta) {
     const orden = procesarCompra(carrito, productos, cliente, tarjeta);
 
     if (orden.estado === 'Pagada') {
-      setProductos(obtenerProductos());   // vuelve a leer los productos con el stock nuevo
+      setProductos(obtenerProductos());  // para refrescar el stock.
       setCarrito([]);
     }
-    // Si fue rechazada, el carrito NO se toca
+
 
     return orden;
   }
 
-  // ===== ADMIN: PRODUCTOS =====
-  // Crea (si no hay id) o actualiza (si hay id), y refresca la lista
+  // para crear, actualizar y eliminar productos desde el admin.
+
   function guardarProducto(datosProducto, id) {
     if (id === null) {
       crearProducto(datosProducto);

@@ -5,13 +5,13 @@ import { formatearPrecio } from '../../utils/formato';
 import { esCritico } from '../../utils/validacionesProducto';
 
 function AdminProductos({ productos, onEliminar }) {
-    // ===== ESTADO: ¿mostrar solo los críticos? =====
+
     const [soloCriticos, setSoloCriticos] = useState(false);
 
     const lista = soloCriticos ? productos.filter(esCritico) : productos;
 
     function confirmarEliminar(producto) {
-        // window.confirm muestra una ventana con "Aceptar" y "Cancelar"
+
         if (window.confirm(`¿Seguro que quieres eliminar "${producto.nombre}"?`)) {
             onEliminar(producto.id);
         }

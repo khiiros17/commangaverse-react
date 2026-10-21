@@ -1,6 +1,4 @@
-// ============================================================
-//  PRUEBAS: usuarios del panel admin (listado, eliminar, historial)
-// ============================================================
+// pruebas unitarias para lapagina de admin usuarios
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import AdminUsuarios from './AdminUsuarios';
@@ -8,7 +6,7 @@ import HistorialUsuario from './HistorialUsuario';
 import { crearUsuario } from '../../data/usuariosService';
 import { crearOrden } from '../../data/ordenesService';
 
-// El admin que "inició sesión" (es el usuario inicial)
+
 const admin = { run: '111111111', nombre: 'Admin', tipo: 'Administrador' };
 
 function dibujarEn(direccion) {
@@ -39,7 +37,6 @@ describe('Admin: usuarios', () => {
         expect(screen.getByText('Administrador')).toBeTruthy();
     });
 
-    // REGLA DE NEGOCIO: nadie puede eliminarse a sí mismo
     it('NO debería permitir que el admin se elimine a sí mismo', () => {
         dibujarEn('/admin/usuarios');
         expect(screen.getByLabelText('Eliminar Admin').disabled).toBeTrue();

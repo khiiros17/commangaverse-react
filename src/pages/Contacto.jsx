@@ -7,7 +7,7 @@ const MAXIMO_COMENTARIO = 500;
 const DATOS_VACIOS = { nombre: '', correo: '', comentario: '' };
 
 function Contacto() {
-    // ===== ESTADO =====
+    // estado
     const [datos, setDatos] = useState(DATOS_VACIOS);
     const [errores, setErrores] = useState({ nombre: '', correo: '', comentario: '' });
     const [enviado, setEnviado] = useState(false);

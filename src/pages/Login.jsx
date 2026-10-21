@@ -8,19 +8,19 @@ import { iniciarSesion } from '../data/sesionService';
 function Login({ onLogin }) {
     const navigate = useNavigate();
 
-    // ===== ESTADO =====
+    // estado del formulario
     const [datos, setDatos] = useState({ correo: '', contrasena: '' });
     const [errores, setErrores] = useState({ correo: '', contrasena: '' });
     const [mensajeError, setMensajeError] = useState('');
 
-    // Qué regla usa cada campo
+    // las reglas de los campos del formulario
     function validarCampo(nombre, valor) {
         if (nombre === 'correo') return validarCorreo(valor.trim());
         if (nombre === 'contrasena') return validarContrasena(valor);
         return '';
     }
 
-    // ===== EN TIEMPO REAL: cada letra actualiza el dato y su error =====
+    //par tiempo real.
     function manejarCambio(evento) {
         const { name, value } = evento.target;
         setDatos({ ...datos, [name]: value });
@@ -28,7 +28,7 @@ function Login({ onLogin }) {
         setMensajeError('');
     }
 
-    // ===== AL ENVIAR =====
+    // al momento de enviarel formulario.
     function manejarEnvio(evento) {
         evento.preventDefault();
 
@@ -50,7 +50,7 @@ function Login({ onLogin }) {
 
         onLogin(usuario);
 
-        // ⬅️ CAMBIO: el administrador va directo a su panel
+
         if (usuario.tipo === 'Administrador') {
             navigate('/admin');
         } else {

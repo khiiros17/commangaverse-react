@@ -1,10 +1,7 @@
-// ============================================================
-//  VALIDACIONES DEL FORMULARIO DE PRODUCTOS (panel admin)
-//  Igual que validaciones.js: cada función devuelve el ERROR o "".
-// ============================================================
+// validaciones del producto
 import { validarTexto } from './validaciones';
 
-/** Código: obligatorio y de al menos 3 caracteres. */
+
 export function validarCodigo(valor) {
     if (valor === '') {
         return 'El código es obligatorio.';
@@ -15,7 +12,7 @@ export function validarCodigo(valor) {
     return '';
 }
 
-/** Precio: obligatorio, número mayor o igual a 0. */
+
 export function validarPrecio(valor) {
     if (valor === '') {
         return 'El precio es obligatorio.';
@@ -27,7 +24,7 @@ export function validarPrecio(valor) {
     return '';
 }
 
-/** Precio de oferta: opcional, pero si se escribe debe ser MENOR al precio normal. */
+
 export function validarPrecioOferta(valor, precio) {
     if (valor === '') {
         return '';
@@ -42,7 +39,7 @@ export function validarPrecioOferta(valor, precio) {
     return '';
 }
 
-/** Stock: número ENTERO mayor o igual a 0 (obligatorio o no). */
+
 export function validarStock(valor, obligatorio = true) {
     if (valor === '') {
         return obligatorio ? 'El stock es obligatorio.' : '';
@@ -54,7 +51,7 @@ export function validarStock(valor, obligatorio = true) {
     return '';
 }
 
-/** Qué regla usa cada campo. "datos" se usa para comparar la oferta con el precio. */
+
 export function validarCampoProducto(nombre, valor, datos) {
     switch (nombre) {
         case 'codigo': return validarCodigo(valor.trim());
@@ -69,7 +66,6 @@ export function validarCampoProducto(nombre, valor, datos) {
     }
 }
 
-/** Valida TODOS los campos y devuelve un objeto con los errores. */
 export function validarProducto(datos) {
     const errores = {};
     Object.keys(datos).forEach(campo => {
@@ -78,14 +74,14 @@ export function validarProducto(datos) {
     return errores;
 }
 
-/** Regla de negocio: ¿otro producto ya usa este código? */
+
 export function codigoRepetido(productos, codigo, idActual = null) {
     return productos.some(
         p => p.codigo.toUpperCase() === codigo.trim().toUpperCase() && p.id !== idActual
     );
 }
 
-/** Un producto está en stock crítico si su stock es menor o igual al stock crítico. */
+
 export function esCritico(producto) {
     return producto.stockCritico !== null
         && producto.stockCritico !== undefined

@@ -1,6 +1,4 @@
-// ============================================================
-//  PRUEBAS: ruta protegida del administrador
-// ============================================================
+// pruebas unitarias de laruta de admin
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import RutaAdmin from './RutaAdmin';

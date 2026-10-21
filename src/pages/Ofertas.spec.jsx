@@ -1,6 +1,6 @@
-// ============================================================
-//  PRUEBAS: página Ofertas
-// ============================================================
+
+//  pruebas unitarias para la página de Ofertas
+
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import Ofertas from './Ofertas';

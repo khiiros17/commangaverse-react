@@ -1,6 +1,4 @@
-// ============================================================
-//  PRUEBAS: página del Carrito
-// ============================================================
+// pruebas unitarias para la página de carrito
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import Carrito from './Carrito';
@@ -12,7 +10,7 @@ const productos = [
     { id: 2, nombre: 'Naruto Vol. 1', precio: 8000, precioOferta: 6000, stock: 1, imagen: IMAGEN_PRUEBA }
 ];
 
-// Dibuja la página con espías en todas las funciones
+
 function dibujarCarrito(carrito, espias) {
     return render(
         <MemoryRouter>
@@ -38,23 +36,23 @@ describe('Página Carrito', () => {
         };
     });
 
-    // RENDERIZADO CONDICIONAL
+
     it('debería mostrar un mensaje si el carrito está vacío', () => {
         dibujarCarrito([], espias);
         expect(screen.getByText(/Tu carrito está vacío/)).toBeTruthy();
     });
 
-    // RENDERIZADO CON DATOS
+
     it('debería mostrar los productos y el total correcto', () => {
         dibujarCarrito([{ id: 1, cantidad: 2 }, { id: 2, cantidad: 1 }], espias);
 
         expect(screen.getByText('Spider-Man #1')).toBeTruthy();
         expect(screen.getByText('Naruto Vol. 1')).toBeTruthy();
-        // 2 x 10.000 + 1 x 6.000 = 26.000
+
         expect(screen.getByTestId('total-carrito').textContent).toBe('$26.000');
     });
 
-    // EVENTOS + MOCKS
+
     it('debería llamar a onCambiarCantidad con +1 al apretar el botón +', () => {
         dibujarCarrito([{ id: 1, cantidad: 2 }], espias);
 
@@ -71,7 +69,7 @@ describe('Página Carrito', () => {
         expect(espias.quitar).toHaveBeenCalledWith(1);
     });
 
-    // REGLA DE NEGOCIO: no superar el stock
+
     it('debería desactivar el botón + cuando se alcanza el stock', () => {
         dibujarCarrito([{ id: 2, cantidad: 1 }], espias);
 

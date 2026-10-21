@@ -1,11 +1,9 @@
-// ============================================================
-//  PRUEBAS: componente ListaProductos
-// ============================================================
+// pruebas unitarias de la lista de productos.
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import ListaProductos from './ListaProductos';
 
-// Imagen de 1x1 pixel, para no depender de archivos reales en las pruebas
+
 const IMAGEN_PRUEBA = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
 
 const productosDePrueba = [
@@ -16,7 +14,7 @@ const productosDePrueba = [
 
 describe('ListaProductos', () => {
 
-    // PRUEBA DE RENDERIZADO: dibuja TODOS los elementos de la lista
+
     it('debería mostrar una tarjeta por cada producto', () => {
         render(
             <MemoryRouter>
@@ -30,7 +28,6 @@ describe('ListaProductos', () => {
         expect(screen.getAllByText('Añadir al carrito').length).toBe(3);
     });
 
-    // PRUEBA DE RENDERIZADO CONDICIONAL: el mensaje solo aparece si la lista está vacía
     it('debería mostrar un mensaje si no hay productos', () => {
         render(
             <MemoryRouter>

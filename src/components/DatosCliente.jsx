@@ -1,7 +1,4 @@
-// ============================================================
-//  DATOS DEL CLIENTE DE UNA ORDEN (molécula)
-//  Se usa en la boleta del cliente y en el detalle del admin.
-// ============================================================
+// datos clientes  para pedidos.
 function DatosCliente({ orden }) {
     const { cliente } = orden;
 

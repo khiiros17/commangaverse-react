@@ -1,14 +1,15 @@
-// ============================================================
-//  BASE DE DATOS SIMULADA
-//  Único archivo que habla directamente con localStorage.
-//  Si en el futuro hay un backend, solo se cambia este archivo.
-// ============================================================
+
+//  base de datos.
+//  localStorage.
+
 
 /**
- * Lee datos guardados en localStorage.
- * @param {string} clave - El nombre con que se guardaron (ej: "productos")
- * @param {*} valorInicial - Lo que se devuelve si todavía no hay nada guardado
+ * para leer los datos guardaddos en el local storage.
+ * @param {string} clave - nombre con el que seguardan 
+ * @param {*} valorInicial
  */
+
+// para leer los datos guardados en el local storage.
 export function leerDatos(clave, valorInicial) {
     const guardado = localStorage.getItem(clave);
 
@@ -27,10 +28,12 @@ export function leerDatos(clave, valorInicial) {
 }
 
 /**
- * Guarda datos en localStorage.
+ * Guarda datos.
  * @param {string} clave - El nombre con que se guardan
- * @param {*} datos - La lista u objeto a guardar
+ * @param {*} datos - La lista, objeto a guardar
  */
+
+// pra guardar datos en el local storage.
 export function guardarDatos(clave, datos) {
     localStorage.setItem(clave, JSON.stringify(datos));
 }

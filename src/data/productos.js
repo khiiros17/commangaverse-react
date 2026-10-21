@@ -1,4 +1,4 @@
-// ===== DATOS INICIALES DE PRODUCTOS =====
+//       datos de los productos
 export const productosIniciales = [
     {
         id: 1,
@@ -22,7 +22,7 @@ export const productosIniciales = [
         stockCritico: 3,
         categoria: "Superhéroes",
         imagen: "/img/batman.jpg",
-        descripcion: "..."
+        descripcion: "un joven millonario que perdio a sus padres y decide luchar contra el crimen."
     },
-    // ... el resto de tus productos
+    // aca se colocan el resto de los productos.
 ];

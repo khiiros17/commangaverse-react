@@ -3,17 +3,16 @@ import { Link, useParams } from 'react-router-dom';
 import ListaProductos from '../components/ListaProductos';
 
 function Categorias({ productos, onAgregar }) {
-    // Si la dirección es /categorias/Manga → nombre = "Manga"
-    // Si la dirección es /categorias       → nombre = undefined
+
     const { nombre } = useParams();
 
-    // Lista de categorías sin repetir, con cuántos productos tiene cada una
+
     const categorias = [...new Set(productos.map(p => p.categoria))].map(categoria => ({
         nombre: categoria,
         cantidad: productos.filter(p => p.categoria === categoria).length
     }));
 
-    // ===== VISTA 1: una categoría elegida =====
+
     if (nombre) {
         const productosDeCategoria = productos.filter(p => p.categoria === nombre);
 
@@ -31,7 +30,7 @@ function Categorias({ productos, onAgregar }) {
         );
     }
 
-    // ===== VISTA 2: todas las categorías =====
+    // vista 2 para todas las categorias: muestra tarjetas con el nombre y cuantos productos tiene cada una
     return (
         <Container className="my-5">
             <h1 className="text-warning mb-4">Categorías</h1>

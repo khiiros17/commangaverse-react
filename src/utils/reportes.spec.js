@@ -1,9 +1,7 @@
-// ============================================================
-//  PRUEBAS: reportes del panel admin
-// ============================================================
+//pruebas unitarias de reportes
 import { resumenTienda, productosMasVendidos, ventasPorCategoria } from './reportes';
 
-// Órdenes de prueba: dos pagadas y una rechazada
+
 const ordenes = [
     {
         id: 1, total: 10000, estado: 'Pagada', items: [
@@ -25,7 +23,7 @@ const ordenes = [
 ];
 
 const productos = [
-    { id: 1, categoria: 'Superhéroes', stock: 2, stockCritico: 5 },   // crítico
+    { id: 1, categoria: 'Superhéroes', stock: 2, stockCritico: 5 },
     { id: 2, categoria: 'Manga', stock: 20, stockCritico: 5 }
 ];
 
@@ -41,7 +39,7 @@ describe('Reportes', () => {
         expect(resumen.totalUsuarios).toBe(3);
         expect(resumen.ordenesPagadas).toBe(2);
         expect(resumen.ordenesRechazadas).toBe(1);
-        expect(resumen.ventasTotales).toBe(15000);   // las rechazadas NO suman
+        expect(resumen.ventasTotales).toBe(15000);
     });
 
     it('debería entregar ceros si no hay datos', () => {
@@ -53,10 +51,10 @@ describe('Reportes', () => {
     it('debería ordenar los más vendidos sumando las unidades de todas las órdenes pagadas', () => {
         const ranking = productosMasVendidos(ordenes);
 
-        expect(ranking[0].nombre).toBe('Naruto Vol. 1');   // 2 + 1 = 3 unidades
+        expect(ranking[0].nombre).toBe('Naruto Vol. 1');
         expect(ranking[0].cantidad).toBe(3);
         expect(ranking[0].total).toBe(6000);
-        expect(ranking.length).toBe(3);                    // la rechazada no cuenta
+        expect(ranking.length).toBe(3);
     });
 
     it('debería respetar el límite del ranking', () => {
@@ -69,7 +67,7 @@ describe('Reportes', () => {
         expect(resultado).toEqual([
             { categoria: 'Superhéroes', total: 6000 },
             { categoria: 'Manga', total: 6000 },
-            { categoria: 'Sin categoría', total: 3000 }      // el producto ya no existe
+            { categoria: 'Sin categoría', total: 3000 }
         ]);
     });
 

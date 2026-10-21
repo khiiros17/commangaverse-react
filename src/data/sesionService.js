@@ -1,12 +1,11 @@
-// ============================================================
-//  SERVICIO DE SESIÓN
-//  Usa sessionStorage: la sesión se borra al cerrar la pestaña.
-// ============================================================
+
+//  servicio de sesion para guardar la sesion del usuario en el sesionstorage del navegador
+
 import { obtenerUsuarioPorCorreo } from './usuariosService';
 
 const CLAVE = 'sesion';
 
-/** Devuelve el usuario que inició sesión, o null. */
+/** devuelve la sesion del usuario o null */
 export function obtenerSesion() {
     const guardado = sessionStorage.getItem(CLAVE);
     if (guardado === null) {
@@ -19,7 +18,7 @@ export function obtenerSesion() {
     }
 }
 
-/** Guarda en la sesión una copia del usuario SIN la contraseña, y la devuelve. */
+/** guarda la sesion del usuario o null */
 export function actualizarSesion(usuario) {
     const sesion = { ...usuario };
     delete sesion.contrasena;
@@ -28,11 +27,7 @@ export function actualizarSesion(usuario) {
     return sesion;
 }
 
-/**
- * Revisa el correo y la contraseña.
- * Si son correctos, guarda la sesión y devuelve el usuario (SIN la contraseña).
- * Si no, devuelve null.
- */
+// inicua la sesion del usuario si el correo y la contraseña son correctas.
 export function iniciarSesion(correo, contrasena) {
     const usuario = obtenerUsuarioPorCorreo(correo);
 
@@ -43,7 +38,7 @@ export function iniciarSesion(correo, contrasena) {
     return actualizarSesion(usuario);
 }
 
-/** Cierra la sesión. */
+// cierra la sesion del usuario
 export function cerrarSesion() {
     sessionStorage.removeItem(CLAVE);
 }

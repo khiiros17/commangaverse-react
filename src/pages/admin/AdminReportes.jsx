@@ -8,7 +8,7 @@ function AdminReportes({ productos }) {
     const masVendidos = productosMasVendidos(ordenes, 5);
     const porCategoria = ventasPorCategoria(ordenes, productos);
 
-    // El total sirve para calcular el porcentaje de cada categoría
+
     const totalVentas = porCategoria.reduce((suma, c) => suma + c.total, 0);
 
     return (
@@ -19,7 +19,7 @@ function AdminReportes({ productos }) {
                 <p className="text-secondary">Todavía no hay ventas pagadas para mostrar reportes.</p>
             ) : (
                 <Row className="g-4">
-                    {/* ===== VENTAS POR CATEGORÍA ===== */}
+
                     <Col lg={6}>
                         <Card bg="dark" text="white" className="h-100">
                             <Card.Body>
@@ -40,7 +40,7 @@ function AdminReportes({ productos }) {
                         </Card>
                     </Col>
 
-                    {/* ===== MÁS VENDIDOS ===== */}
+                    {/* mas vendidos */}
                     <Col lg={6}>
                         <Card bg="dark" text="white" className="h-100">
                             <Card.Body>

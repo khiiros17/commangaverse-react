@@ -7,10 +7,10 @@ import { formatearPrecio } from '../../utils/formato';
 import { formatearFecha } from '../../utils/fechas';
 
 function AdminOrdenes() {
-    // ===== ESTADO: filtro por estado ("" = todas) =====
+
     const [filtro, setFiltro] = useState('');
 
-    // Las más nuevas primero: se copia la lista y se invierte
+
     const ordenes = [...obtenerOrdenes()].reverse();
     const lista = filtro === '' ? ordenes : ordenes.filter(o => o.estado === filtro);
 

@@ -1,6 +1,4 @@
-// ============================================================
-//  PRUEBAS: órdenes del panel admin (listado, filtro y boleta)
-// ============================================================
+
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import AdminOrdenes from './AdminOrdenes';
@@ -38,7 +36,7 @@ describe('Admin: órdenes', () => {
         expect(screen.getByText('#2')).toBeTruthy();
     });
 
-    // ESTADO + EVENTO: el filtro cambia la lista
+
     it('debería filtrar las órdenes por estado', () => {
         dibujarEn('/admin/ordenes');
 

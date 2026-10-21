@@ -6,7 +6,7 @@ import { resumenTienda } from '../../utils/reportes';
 import { esCritico } from '../../utils/validacionesProducto';
 import { formatearPrecio } from '../../utils/formato';
 
-// Una tarjeta con un número grande (molécula pequeña, solo se usa aquí)
+// Una tarjeta con un numero grande
 function TarjetaDato({ titulo, valor, color = 'warning' }) {
     return (
         <Card bg="dark" text="white" className={`h-100 tarjeta-dato border-${color}`}>

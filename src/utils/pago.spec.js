@@ -1,6 +1,4 @@
-// ============================================================
-//  PRUEBAS: pago simulado
-// ============================================================
+//pruebas unitarias para la logica del pago
 import { validarTarjeta, simularPago, ultimosDigitos } from './pago';
 
 describe('Pago simulado', () => {

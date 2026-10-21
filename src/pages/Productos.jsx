@@ -3,7 +3,7 @@ import { Container, Form } from 'react-bootstrap';
 import ListaProductos from '../components/ListaProductos';
 
 function Productos({ productos, onAgregar }) {
-    // Estado: lo que la persona escribe en el buscador
+    // Estado lo que la persona escribe en el buscador
     const [busqueda, setBusqueda] = useState('');
 
     // Filtra los productos cuyo nombre contenga lo buscado

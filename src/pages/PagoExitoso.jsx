@@ -2,12 +2,12 @@ import { Container, Card, Button, Alert } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import { obtenerOrdenPorId } from '../data/ordenesService';
 import ResumenOrden from '../components/ResumenOrden';
-
+// pagina por si el pago es exitoso 
 function PagoExitoso() {
     const { id } = useParams();
     const orden = obtenerOrdenPorId(id);
 
-    // Si la orden no existe o no está pagada, no hay boleta que mostrar
+
     if (!orden || orden.estado !== 'Pagada') {
         return (
             <Container className="my-5">
@@ -23,7 +23,7 @@ function PagoExitoso() {
     return (
         <Container className="my-5 contenedor-formulario-ancho">
             <Alert variant="success">
-                <h1 className="h3 mb-1">✅ ¡Compra realizada con éxito!</h1>
+                <h1 className="h3 mb-1"> ¡Compra realizada con éxito!</h1>
                 <p className="mb-0">Gracias por tu compra, {cliente.nombre}. Te enviamos el detalle a {cliente.correo}.</p>
             </Alert>
 

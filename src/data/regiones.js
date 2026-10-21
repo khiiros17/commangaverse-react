@@ -1,5 +1,5 @@
-// ===== REGIONES Y COMUNAS DE CHILE =====
-// (versión resumida; se reemplaza por el arreglo oficial del docente)
+// regiones chile 
+
 export const regiones = [
     {
         nombre: 'Región Metropolitana',

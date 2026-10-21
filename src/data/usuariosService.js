@@ -1,11 +1,11 @@
-// ============================================================
-//  SERVICIO DE USUARIOS (CRUD)
-// ============================================================
+
+//   usuario (CRUD)
+
 import { leerDatos, guardarDatos } from './baseDatos';
 
 const CLAVE = 'usuarios';
 
-// Usuario administrador de ejemplo, para poder entrar al panel
+// usuario administrador, para poder entrar al panel
 export const usuariosIniciales = [
     {
         run: '111111111',
@@ -21,20 +21,20 @@ export const usuariosIniciales = [
     }
 ];
 
-// ===== R: LEER =====
+//  leer
 
-/** Devuelve todos los usuarios. */
+/** devuelve todos los usuarios */
 export function obtenerUsuarios() {
     return leerDatos(CLAVE, usuariosIniciales);
 }
 
-/** Busca un usuario por su RUN. Devuelve el usuario o null. */
+/** busca un usuario por su rut deevuelve el usuario o null */
 export function obtenerUsuarioPorRun(run) {
     const usuario = obtenerUsuarios().find(u => u.run === String(run).toUpperCase());
     return usuario || null;
 }
 
-/** Busca un usuario por su correo. Devuelve el usuario o null. */
+/** busca un usuario por su correo devuelve el usuario o null */
 export function obtenerUsuarioPorCorreo(correo) {
     const usuario = obtenerUsuarios().find(
         u => u.correo.toLowerCase() === String(correo).toLowerCase()
@@ -42,14 +42,14 @@ export function obtenerUsuarioPorCorreo(correo) {
     return usuario || null;
 }
 
-// ===== C: CREAR =====
+// crear
 
-/** Crea un usuario. Devuelve el usuario creado, o null si el RUN ya existe. */
+/** crea un usuario devuelve el usuario creado o null si el rut ya existe */
 export function crearUsuario(datos) {
     const usuarios = obtenerUsuarios();
     const run = String(datos.run).toUpperCase();
 
-    // Regla de negocio: no puede haber dos usuarios con el mismo RUN
+    // regla de negocio no puede haber dos usuarios con el mismo rut
     if (usuarios.some(u => u.run === run)) {
         return null;
     }
@@ -59,9 +59,9 @@ export function crearUsuario(datos) {
     return nuevo;
 }
 
-// ===== U: ACTUALIZAR =====
+// actualizar
 
-/** Actualiza un usuario. El RUN no se puede cambiar. Devuelve el usuario actualizado o null. */
+/** actualiza un usuario el rut no se puede cambiar devuelve el usuario actualizado o null */
 export function actualizarUsuario(run, cambios) {
     const usuarios = obtenerUsuarios();
     const runBuscado = String(run).toUpperCase();
@@ -74,9 +74,9 @@ export function actualizarUsuario(run, cambios) {
     return actualizados.find(u => u.run === runBuscado) || null;
 }
 
-// ===== D: ELIMINAR =====
+// eliminar
 
-/** Elimina un usuario. Devuelve true si lo eliminó. */
+/** elimina un usuario devuelve true cuando lo elimine */
 export function eliminarUsuario(run) {
     const usuarios = obtenerUsuarios();
     const runBuscado = String(run).toUpperCase();

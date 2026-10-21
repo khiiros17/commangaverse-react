@@ -24,10 +24,10 @@ function Header({ cantidadCarrito, usuario, onLogout }) {
                     </Nav>
 
                     <Nav className="align-items-lg-center">
-                        {/* Si hay sesión, saluda; si no, muestra Iniciar sesión y Registrarse */}
+
                         {usuario ? (
                             <>
-                                {/* ⬅️ NUEVO: el enlace al panel solo lo ve el Administrador */}
+
                                 {usuario.tipo === 'Administrador' && (
                                     <Nav.Link as={NavLink} to="/admin" className="text-warning">⚙️ Panel admin</Nav.Link>
                                 )}
@@ -44,7 +44,7 @@ function Header({ cantidadCarrito, usuario, onLogout }) {
                         )}
 
                         <Nav.Link as={NavLink} to="/carrito">
-                            🛒 Carrito <Badge bg="warning" text="dark">{cantidadCarrito}</Badge>
+                            Carrito <Badge bg="warning" text="dark">{cantidadCarrito}</Badge>
                         </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>

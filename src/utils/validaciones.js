@@ -1,12 +1,8 @@
-// ============================================================
-//  VALIDACIONES DE FORMULARIOS
-//  Cada función devuelve el MENSAJE DE ERROR, o "" (vacío) si está bien.
-//  (Son las mismas reglas de la Evaluación 1, ahora reutilizables en React)
-// ============================================================
+// validaciones
 
 export const DOMINIOS_PERMITIDOS = ['duoc.cl', 'profesor.duoc.cl', 'gmail.com'];
 
-/** Correo: obligatorio (o no), máx. 100, solo dominios permitidos. */
+
 export function validarCorreo(valor, obligatorio = true) {
     if (valor === '') {
         return obligatorio ? 'El correo es obligatorio.' : '';
@@ -24,7 +20,7 @@ export function validarCorreo(valor, obligatorio = true) {
     return '';
 }
 
-/** Texto obligatorio con largo máximo. */
+
 export function validarTexto(valor, nombreCampo, maximo) {
     if (valor === '') {
         return `El campo ${nombreCampo} es obligatorio.`;
@@ -35,7 +31,7 @@ export function validarTexto(valor, nombreCampo, maximo) {
     return '';
 }
 
-/** Contraseña: obligatoria, entre 4 y 10 caracteres. */
+
 export function validarContrasena(valor) {
     if (valor === '') {
         return 'La contraseña es obligatoria.';
@@ -46,7 +42,7 @@ export function validarContrasena(valor) {
     return '';
 }
 
-/** RUN chileno: sin puntos ni guion, 7 a 9 caracteres, dígito verificador (módulo 11). */
+
 export function validarRun(valor) {
     const run = valor.toUpperCase();
 
@@ -67,7 +63,7 @@ export function validarRun(valor) {
         return 'El RUN solo puede tener números (y una K al final).';
     }
 
-    // Módulo 11: de derecha a izquierda, multiplicar por 2, 3, 4, 5, 6, 7, 2, 3...
+
     let suma = 0;
     let multiplicador = 2;
     for (let i = cuerpo.length - 1; i >= 0; i--) {
@@ -91,7 +87,7 @@ export function validarRun(valor) {
     return '';
 }
 
-/** Fecha opcional, que no sea futura. */
+
 export function validarFecha(valor) {
     if (valor === '') {
         return '';
@@ -102,12 +98,11 @@ export function validarFecha(valor) {
     return '';
 }
 
-/** Select obligatorio. */
 export function validarSelect(valor, mensaje) {
     return valor === '' ? mensaje : '';
 }
 
-/** ¿Hay algún error en el objeto de errores? */
+
 export function hayErrores(errores) {
     return Object.values(errores).some(error => error !== '');
 }

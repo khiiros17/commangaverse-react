@@ -1,6 +1,4 @@
-// ============================================================
-//  PRUEBAS: validaciones de formularios
-// ============================================================
+// pruebas unitarias de las validaciones
 import {
     validarCorreo,
     validarContrasena,
@@ -57,7 +55,7 @@ describe('Validaciones', () => {
         it('debería aceptar RUN válidos', () => {
             expect(validarRun('123456785')).toBe('');
             expect(validarRun('1000005K')).toBe('');
-            expect(validarRun('1000005k')).toBe('');    // la k minúscula también vale
+            expect(validarRun('1000005k')).toBe('');
         });
 
         it('debería rechazar un dígito verificador incorrecto', () => {

@@ -9,6 +9,7 @@ import {
 import { regiones, comunasDe } from '../data/regiones';
 import { crearUsuario, obtenerUsuarioPorCorreo } from '../data/usuariosService';
 
+// formulario de registro de usuario valida los campos y crea el usuario en el localstorage.
 const DATOS_VACIOS = {
     run: '', nombre: '', apellidos: '', correo: '', contrasena: '',
     fechaNacimiento: '', region: '', comuna: '', direccion: ''
@@ -20,7 +21,7 @@ function Registro() {
     const [errores, setErrores] = useState({});
     const [mensaje, setMensaje] = useState({ tipo: '', texto: '' });
 
-    // Las comunas dependen de la región elegida (se calculan, no son estado)
+    // Las comunas dependen de la región elegida 
     const comunas = comunasDe(datos.region);
 
     // Qué regla usa cada campo

@@ -1,5 +1,5 @@
 import { Container } from 'react-bootstrap';
-
+// paagina de error 404, no encontrada
 function NoEncontrada() {
     return (
         <Container className="my-5">

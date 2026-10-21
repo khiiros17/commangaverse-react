@@ -1,8 +1,6 @@
-// ============================================================
-//  SERVICIO DE ÓRDENES DE COMPRA
-//  Guarda las compras en localStorage, con la misma idea
-//  que productosService y usuariosService.
-// ============================================================
+// 
+//  ordenes de compra (CRUD)
+
 import { leerDatos, guardarDatos } from './baseDatos';
 import { actualizarProducto } from './productosService';
 import { detalleCarrito, calcularTotal, precioFinal } from '../utils/carrito';
@@ -10,25 +8,25 @@ import { simularPago, ultimosDigitos } from '../utils/pago';
 
 const CLAVE = 'ordenes';
 
-/** Todas las órdenes. */
+/** devuelve las ordenes */
 export function obtenerOrdenes() {
     return leerDatos(CLAVE, []);
 }
 
-/** Una orden por su número, o null. */
+/** orden por numero  */
 export function obtenerOrdenPorId(id) {
     const orden = obtenerOrdenes().find(o => o.id === Number(id));
     return orden || null;
 }
 
-/** Las órdenes de un cliente (por su correo). */
+/** las ordenes del usuario por correo */
 export function obtenerOrdenesDeUsuario(correo) {
     return obtenerOrdenes().filter(
         o => o.cliente.correo.toLowerCase() === String(correo).toLowerCase()
     );
 }
 
-/** Guarda una orden nueva con número y fecha automáticos. */
+/** Guarda la orden con un id y fecha de forma automatica */
 export function crearOrden(datos) {
     const ordenes = obtenerOrdenes();
     const idMayor = ordenes.reduce((max, o) => Math.max(max, o.id), 0);
@@ -43,13 +41,7 @@ export function crearOrden(datos) {
     return nueva;
 }
 
-/**
- * Procesa una compra completa:
- *  1. Simula el pago.
- *  2. Crea la orden (Pagada o Rechazada).
- *  3. Si se pagó, descuenta el stock de cada producto.
- * Devuelve la orden creada.
- */
+// procesa la compra devuelve la orden y actualiza el stock si se paga 
 export function procesarCompra(carrito, productos, cliente, tarjeta) {
     const lineas = detalleCarrito(carrito, productos);
     const aprobado = simularPago(tarjeta);
@@ -68,7 +60,7 @@ export function procesarCompra(carrito, productos, cliente, tarjeta) {
         estado: aprobado ? 'Pagada' : 'Rechazada'
     });
 
-    // Regla de negocio: el stock SOLO baja si el pago fue aprobado
+    // regla de negocio el stock solo baja si el pago fue aprobado
     if (aprobado) {
         lineas.forEach(({ producto, cantidad }) => {
             actualizarProducto(producto.id, { stock: producto.stock - cantidad });

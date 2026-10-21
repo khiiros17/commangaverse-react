@@ -1,8 +1,6 @@
 import { Badge } from 'react-bootstrap';
 
-// ============================================================
-//  ESTADO DE UNA ORDEN (átomo): verde si se pagó, rojo si no
-// ============================================================
+// estado de una orden.
 function EstadoOrden({ estado }) {
     return <Badge bg={estado === 'Pagada' ? 'success' : 'danger'}>{estado}</Badge>;
 }

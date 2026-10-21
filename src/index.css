@@ -1,4 +1,4 @@
-/* ===== ESTILOS GENERALES DE COMMANGAVERSE ===== */
+/* estilos generales */
 :root {
   --color-fondo: #121212;
   --color-tarjeta: #1f1f1f;
@@ -13,7 +13,7 @@ body {
 }
 
 
-/* ===== TARJETAS DE PRODUCTOS ===== */
+/* tarjetas de los productos */
 .tarjeta-producto {
   border: 2px solid var(--color-naranjo);
   transition: transform 0.2s;
@@ -21,12 +21,12 @@ body {
 
 .tarjeta-producto:hover {
   transform: translateY(-5px);
-  /* la tarjeta "sube" un poco al pasar el mouse */
+  /* para que suba */
 }
 
 .tarjeta-producto .card-img-top {
   aspect-ratio: 2 / 3;
-  /* forma de portada de cómic (¡como en la Evaluación 1!) */
+  /* forma de la portada  */
   object-fit: cover;
 }
 
@@ -38,7 +38,7 @@ body {
 
 
 
-/* ===== BANNER DEL HOME ===== */
+/* banner del home */
 .banner {
   background-color: var(--color-tarjeta);
   border: 2px solid var(--color-naranjo);
@@ -46,20 +46,20 @@ body {
 
 .titulo-principal {
   font-size: clamp(3rem, 12vw, 7rem);
-  /* tipografía fluida, ¡como en la Evaluación 1! */
+  /* tipografía  */
   font-weight: 900;
   color: var(--color-naranjo);
   line-height: 0.9;
 }
 
-/* ===== DETALLE DEL PRODUCTO ===== */
+/* detalle producto*/
 .detalle-imagen {
   aspect-ratio: 2 / 3;
   object-fit: cover;
   border: 3px solid var(--color-naranjo);
 }
 
-/* El breadcrumb de Bootstrap viene con colores para fondo claro */
+/*para colores claros */
 .breadcrumb-item a {
   color: var(--color-amarillo);
 }
@@ -69,7 +69,7 @@ body {
 }
 
 
-/* ===== CARRITO ===== */
+/* carrito */
 .miniatura {
   width: 45px;
   aspect-ratio: 2 / 3;
@@ -82,7 +82,7 @@ body {
 }
 
 
-/* ===== FORMULARIOS ===== */
+/* formulario*/
 .contenedor-formulario {
   max-width: 480px;
 }
@@ -95,7 +95,7 @@ body {
   border: 2px solid var(--color-naranjo);
 }
 
-/* Campos oscuros, para que combinen con la tarjeta */
+/* parte oscura para combinar los formularios */
 .tarjeta-formulario .form-control,
 .tarjeta-formulario .form-select {
   background-color: #2a2a2a;
@@ -106,16 +106,16 @@ body {
   color: #888;
 }
 
-/* ===== PRECIO CON OFERTA ===== */
+/* precio oferta  */
 .precio-anterior {
   color: #888;
   text-decoration: line-through;
-  /* precio tachado */
+  /* tachado de precio */
   font-weight: normal;
   font-size: 0.8em;
 }
 
-/* ===== CATEGORÍAS ===== */
+/* categorias */
 .tarjeta-categoria {
   border: 2px solid var(--color-naranjo);
   transition: transform 0.2s;
@@ -125,7 +125,7 @@ body {
   transform: translateY(-5px);
 }
 
-/* ===== NOSOTROS Y BLOGS ===== */
+/* nosotros y los blogs */
 .seccion-texto,
 .blog-completo {
   max-width: 900px;
@@ -147,14 +147,14 @@ body {
 }
 
 
-/* ===== BOLETA (al imprimir) ===== */
+/* boleta al momento de imprimir*/
 @media print {
 
   .navbar,
   footer,
   .no-imprimir {
     display: none !important;
-    /* no se imprime el menú, el pie ni los botones */
+
   }
 
   body {
@@ -162,7 +162,7 @@ body {
   }
 }
 
-/* ===== PANEL ADMIN ===== */
+/* panel de admin */
 .menu-admin {
   border-right: 2px solid var(--color-naranjo);
 }
@@ -180,11 +180,11 @@ body {
 
 .tarjeta-dato {
   border-width: 0 0 0 4px;
-  /* solo el borde izquierdo, de color */
+  /*color de borde del lado izquierdo */
   border-style: solid;
 }
 
-/* En celular el menú queda arriba: el borde pasa a ser inferior */
+/* para cuando se vea en el celular */
 @media (max-width: 767px) {
   .menu-admin {
     border-right: none;
@@ -193,7 +193,7 @@ body {
   }
 }
 
-/* Filtro de órdenes y tarjeta de perfil: que no ocupen todo el ancho */
+/* filtros de las ordenes. */
 .filtro-admin {
   max-width: 280px;
 }

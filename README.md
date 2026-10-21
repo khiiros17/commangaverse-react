@@ -1,4 +1,4 @@
-# ComMangaVerse 📚💥 — versión React
+# ComMangaVerse
 
 Tienda online de **cómics, mangas y novelas gráficas**, desarrollada para la
 **Evaluación Parcial 2** de **DSY1104 – Desarrollo Fullstack II** (Duoc UC).
@@ -11,7 +11,7 @@ categorías, ofertas, un flujo de compra completo, un panel de administrador y
 
 ---
 
-## 🛠️ Tecnologías
+##  Tecnologías
 
 | Uso | Herramienta |
 |---|---|
@@ -23,7 +23,7 @@ categorías, ofertas, un flujo de compra completo, un panel de administrador y
 | Cobertura | istanbul (`babel-plugin-istanbul` + `karma-coverage`) |
 | Calidad de código | ESLint |
 
-## 🚀 Cómo ejecutar el proyecto
+##  Cómo ejecutar el proyecto
 
 Requisito: **Node.js** 20 o superior.
 
@@ -39,7 +39,7 @@ npm run dev      # abre la tienda en http://localhost:5173
 | `npm run lint` | Revisa el código con ESLint |
 | `npm run build` | Genera la versión de producción en `dist/` |
 
-## 🔑 Datos para probar
+##  Datos para probar
 
 | Qué | Valor |
 |---|---|
@@ -52,7 +52,7 @@ npm run dev      # abre la tienda en http://localhost:5173
 
 Para volver a los datos iniciales: F12 → Application → Local Storage → borrar las claves y recargar.
 
-## ✨ Funcionalidades
+##  Funcionalidades
 
 ### Tienda (público)
 - **Inicio** con banner y productos destacados.
@@ -71,7 +71,7 @@ Para volver a los datos iniciales: F12 → Application → Local Storage → bor
 - **Reportes:** ventas por categoría y Top 5 de productos más vendidos.
 - **Mi perfil:** editar los datos propios. El Header se actualiza al instante.
 
-## 📁 Estructura
+##  Estructura
 
 ```
 src/
@@ -110,7 +110,7 @@ src/
 
 Cada archivo `*.spec.js` / `*.spec.jsx` está **junto al archivo que prueba**.
 
-## 🧪 Pruebas
+##  Pruebas
 
 ```bash
 npm test
@@ -124,7 +124,7 @@ Resultado esperado: `Executed 129 of 129 SUCCESS`.
 
 El análisis completo está en el **Documento de cobertura del testing**.
 
-## 🗺️ Rutas principales
+##  Rutas principales
 
 | Ruta | Página |
 |---|---|
@@ -137,7 +137,7 @@ El análisis completo está en el **Documento de cobertura del testing**.
 | `/login`, `/registro`, `/contacto`, `/nosotros`, `/blogs`, `/blogs/:id` | Otras páginas |
 | `/admin/...` | Panel de administrador (protegido) |
 
-## 🔮 Mejoras futuras
+##  Mejoras futuras
 
 - Conectar un **backend** con base de datos real y un pago real (por ejemplo, Webpay).
 - Validar permisos también en el servidor, no solo en el navegador.

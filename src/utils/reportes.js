@@ -1,15 +1,12 @@
-// ============================================================
-//  REPORTES (funciones puras)
-//  Calculan los números del panel de administrador.
-// ============================================================
+// reportes 
 import { esCritico } from './validacionesProducto';
 
-/** Solo las órdenes que se cobraron. */
+
 function soloPagadas(ordenes) {
     return ordenes.filter(o => o.estado === 'Pagada');
 }
 
-/** Resumen general de la tienda para el dashboard. */
+
 export function resumenTienda(productos, ordenes, usuarios) {
     const pagadas = soloPagadas(ordenes);
 
@@ -23,7 +20,7 @@ export function resumenTienda(productos, ordenes, usuarios) {
     };
 }
 
-/** Los productos con más unidades vendidas (de mayor a menor). */
+
 export function productosMasVendidos(ordenes, limite = 5) {
     const conteo = {};
 
@@ -42,7 +39,7 @@ export function productosMasVendidos(ordenes, limite = 5) {
         .slice(0, limite);
 }
 
-/** Cuánto se vendió en cada categoría (de mayor a menor). */
+
 export function ventasPorCategoria(ordenes, productos) {
     const totales = {};
 

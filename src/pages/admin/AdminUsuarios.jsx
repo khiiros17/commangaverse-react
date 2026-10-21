@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 import { obtenerUsuarios, eliminarUsuario } from '../../data/usuariosService';
 import { obtenerOrdenesDeUsuario } from '../../data/ordenesService';
 
-// Color de la etiqueta según el tipo de usuario
+
 const COLORES_TIPO = { Administrador: 'warning', Vendedor: 'info', Cliente: 'secondary' };
 
 function AdminUsuarios({ usuarioSesion }) {
-    // ===== ESTADO: la lista se guarda aquí para poder refrescarla al eliminar =====
+
     const [usuarios, setUsuarios] = useState(() => obtenerUsuarios());
 
     function confirmarEliminar(usuario) {
@@ -38,7 +38,7 @@ function AdminUsuarios({ usuarioSesion }) {
                 </thead>
                 <tbody>
                     {usuarios.map(usuario => {
-                        // Regla: nadie puede eliminarse a sí mismo
+
                         const esYo = usuarioSesion && usuarioSesion.run === usuario.run;
 
                         return (

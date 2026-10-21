@@ -1,8 +1,10 @@
-// ============================================================
-//  PRUEBAS: base de datos simulada (con MOCKS de localStorage)
-// ============================================================
+
+//  pruebas unitarias para la base de datos simulada
+
 import { leerDatos, guardarDatos } from './baseDatos';
 
+
+//  pruebas unitarias para la base de datos simulada
 describe('baseDatos', () => {
 
     beforeEach(() => {
@@ -10,7 +12,7 @@ describe('baseDatos', () => {
     });
 
     it('debería guardar los datos como texto JSON en localStorage', () => {
-        // MOCK: un "espía" que vigila la función real setItem de localStorage
+        // simulacion del metodo setItem de localStorage para poder espiar si se llama correctamente
         spyOn(Storage.prototype, 'setItem');
 
         guardarDatos('prueba', [1, 2, 3]);
@@ -23,7 +25,7 @@ describe('baseDatos', () => {
     });
 
     it('debería devolver el valor inicial si los datos guardados están dañados', () => {
-        // MOCK: simulamos que localStorage devuelve un texto que NO es JSON válido
+        // mocks simulamos que localStorage devuelve un texto que no es JSON valido
         spyOn(Storage.prototype, 'getItem').and.returnValue('esto no es JSON {');
 
         expect(leerDatos('carrito', [])).toEqual([]);

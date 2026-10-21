@@ -43,7 +43,7 @@ module.exports = function (config) {
         // Configuración de webpack solo para las pruebas
         webpack: {
             mode: 'development',
-            stats: 'errors-only',                 // muestra solo los errores al compilar
+            stats: 'errors-only',
             devtool: 'inline-source-map',
             resolve: {
                 extensions: ['.js', '.jsx']
@@ -53,7 +53,7 @@ module.exports = function (config) {
                     {
                         test: /\.(js|jsx)$/,
                         exclude: /node_modules/,
-                        // Permite importar archivos sin escribir la extensión (./formato en vez de ./formato.js)
+
                         resolve: { fullySpecified: false },
                         use: {
                             loader: 'babel-loader',
@@ -62,7 +62,7 @@ module.exports = function (config) {
                                     '@babel/preset-env',
                                     ['@babel/preset-react', { runtime: 'automatic' }]
                                 ],
-                                // Mide la cobertura del código de la app (no de las pruebas)
+
                                 plugins: [
                                     ['istanbul', { exclude: ['**/*.spec.js', '**/*.spec.jsx'] }]
                                 ]
@@ -78,7 +78,7 @@ module.exports = function (config) {
             }
         },
 
-        // Cómo mostrar los resultados: progreso en la terminal + informe de cobertura
+
         reporters: ['progress', 'coverage'],
 
         coverageReporter: {
@@ -89,13 +89,13 @@ module.exports = function (config) {
             ]
         },
 
-        // Navegador donde se ejecutan las pruebas (Chrome/Edge sin ventana)
+
         browsers: ['ChromeHeadless'],
 
-        // true: ejecuta una vez y termina. false: se queda vigilando los cambios
+
         singleRun: true,
 
-        // Más tiempo de espera, por si el computador es lento
+
         browserNoActivityTimeout: 60000
     });
 };

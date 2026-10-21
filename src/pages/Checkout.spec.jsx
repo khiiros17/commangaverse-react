@@ -1,6 +1,4 @@
-// ============================================================
-//  PRUEBAS: página Checkout (formulario, validaciones y navegación)
-// ============================================================
+// pruebas unitarias para la página de checkout
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import Checkout from './Checkout';
@@ -15,7 +13,7 @@ const usuario = {
     region: 'Región Metropolitana', comuna: 'Santiago', direccion: 'Calle 123'
 };
 
-// Dibuja el Checkout con rutas "falsas" para ver a dónde navega
+
 function dibujarCheckout({ carritoPrueba = carrito, usuarioPrueba = null, onConfirmar = () => { } } = {}) {
     return render(
         <MemoryRouter initialEntries={['/checkout']}>
@@ -47,7 +45,7 @@ describe('Página Checkout', () => {
         expect(screen.getByTestId('total-checkout').textContent).toBe('$25.980');
     });
 
-    // PROPS + ESTADO INICIAL: los datos del usuario ya vienen escritos
+
     it('debería completar los datos si hay una sesión iniciada', () => {
         dibujarCheckout({ usuarioPrueba: usuario });
 
@@ -56,7 +54,7 @@ describe('Página Checkout', () => {
         expect(screen.getByLabelText('Comuna').value).toBe('Santiago');
     });
 
-    // VALIDACIÓN: con errores NO se procesa la compra
+
     it('NO debería confirmar la compra si el formulario tiene errores', () => {
         const espia = jasmine.createSpy('onConfirmarCompra');
         dibujarCheckout({ onConfirmar: espia });
@@ -67,7 +65,7 @@ describe('Página Checkout', () => {
         expect(screen.getByText('El número de tarjeta es obligatorio.')).toBeTruthy();
     });
 
-    // EVENTO + NAVEGACIÓN: pago aprobado → página de éxito
+
     it('debería ir a Pago exitoso cuando la orden queda Pagada', () => {
         const espia = jasmine.createSpy('onConfirmarCompra').and.returnValue({ id: 7, estado: 'Pagada' });
         dibujarCheckout({ usuarioPrueba: usuario, onConfirmar: espia });
@@ -81,7 +79,7 @@ describe('Página Checkout', () => {
         expect(screen.getByText('Página de éxito')).toBeTruthy();
     });
 
-    // EVENTO + NAVEGACIÓN: pago rechazado → página de error
+
     it('debería ir a Pago con error cuando la orden queda Rechazada', () => {
         const espia = jasmine.createSpy('onConfirmarCompra').and.returnValue({ id: 8, estado: 'Rechazada' });
         dibujarCheckout({ usuarioPrueba: usuario, onConfirmar: espia });

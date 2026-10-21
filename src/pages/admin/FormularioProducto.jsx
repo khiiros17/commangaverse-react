@@ -10,7 +10,7 @@ const DATOS_VACIOS = {
     stock: '', stockCritico: '', categoria: '', imagen: ''
 };
 
-// Convierte un producto guardado en datos para el formulario (todo como texto)
+
 function productoAFormulario(producto) {
     return {
         codigo: producto.codigo,
@@ -25,11 +25,7 @@ function productoAFormulario(producto) {
     };
 }
 
-// ============================================================
-//  UN SOLO FORMULARIO PARA CREAR Y EDITAR
-//  /admin/productos/nuevo      → crear  (no hay id)
-//  /admin/productos/editar/3   → editar (id = "3")
-// ============================================================
+
 function FormularioProducto({ productos, onGuardar }) {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -37,16 +33,16 @@ function FormularioProducto({ productos, onGuardar }) {
     const editando = id !== undefined;
     const productoActual = editando ? productos.find(p => p.id === Number(id)) : null;
 
-    // ===== ESTADO =====
+
     const [datos, setDatos] = useState(() =>
         productoActual ? productoAFormulario(productoActual) : DATOS_VACIOS
     );
     const [errores, setErrores] = useState({});
 
-    // Categorías que ya existen (para sugerirlas al escribir)
+
     const categorias = [...new Set(productos.map(p => p.categoria))];
 
-    // ===== EN TIEMPO REAL =====
+
     function manejarCambio(evento) {
         const { name, value } = evento.target;
         const nuevosDatos = { ...datos, [name]: value };
@@ -54,20 +50,20 @@ function FormularioProducto({ productos, onGuardar }) {
 
         const nuevosErrores = { ...errores, [name]: validarCampoProducto(name, value, nuevosDatos) };
 
-        // Si cambia el precio, la oferta se vuelve a revisar (debe seguir siendo menor)
+
         if (name === 'precio') {
             nuevosErrores.precioOferta = validarCampoProducto('precioOferta', nuevosDatos.precioOferta, nuevosDatos);
         }
         setErrores(nuevosErrores);
     }
 
-    // ===== AL GUARDAR =====
+
     function manejarEnvio(evento) {
         evento.preventDefault();
 
         const nuevosErrores = validarProducto(datos);
 
-        // Regla de negocio: el código no se puede repetir
+
         if (!nuevosErrores.codigo && codigoRepetido(productos, datos.codigo, editando ? Number(id) : null)) {
             nuevosErrores.codigo = 'Ya existe otro producto con este código.';
         }
@@ -77,7 +73,7 @@ function FormularioProducto({ productos, onGuardar }) {
             return;
         }
 
-        // Convierte los textos del formulario en los tipos correctos
+
         const producto = {
             codigo: datos.codigo.trim().toUpperCase(),
             nombre: datos.nombre.trim(),
@@ -94,7 +90,7 @@ function FormularioProducto({ productos, onGuardar }) {
         navigate('/admin/productos');
     }
 
-    // Si se quiere editar un producto que no existe
+
     if (editando && !productoActual) {
         return (
             <>
@@ -154,7 +150,7 @@ function FormularioProducto({ productos, onGuardar }) {
 
                         <Row>
                             <Col md={6}>
-                                {/* Campo con sugerencias: se puede elegir una categoría o escribir una nueva */}
+
                                 <Form.Group className="mb-3" controlId="categoria">
                                     <Form.Label>Categoría</Form.Label>
                                     <Form.Control name="categoria" list="lista-categorias" value={datos.categoria}

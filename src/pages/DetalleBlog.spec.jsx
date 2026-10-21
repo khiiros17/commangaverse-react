@@ -1,6 +1,4 @@
-// ============================================================
-//  PRUEBAS: página DetalleBlog
-// ============================================================
+// pruebas unitarias para la página de detalle de blog
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import DetalleBlog from './DetalleBlog';

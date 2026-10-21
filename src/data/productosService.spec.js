@@ -1,6 +1,6 @@
-// ============================================================
-//  PRUEBAS: servicio de productos (CRUD)
-// ============================================================
+
+//  pruebas unitarias para el servicio de productos
+
 import {
     obtenerProductos,
     obtenerProductoPorId,
@@ -13,13 +13,12 @@ import { productosIniciales } from './productos';
 
 describe('productosService', () => {
 
-    // Antes de CADA prueba, se borra la "base de datos".
-    // Así cada prueba parte desde cero y no depende de las demás.
+
     beforeEach(() => {
         localStorage.clear();
     });
 
-    // ----- R: LEER -----
+    // leer prueba
     it('debería devolver los productos iniciales si no hay nada guardado', () => {
         expect(obtenerProductos().length).toBe(productosIniciales.length);
     });
@@ -39,7 +38,7 @@ describe('productosService', () => {
         expect(categorias.length).toBe(sinRepetir.size);
     });
 
-    // ----- C: CREAR -----
+    // crear prueba
     it('debería crear un producto con un id nuevo', () => {
         const cantidadAntes = obtenerProductos().length;
 
@@ -49,7 +48,7 @@ describe('productosService', () => {
         expect(obtenerProductoPorId(nuevo.id).nombre).toBe('Cómic de prueba');
     });
 
-    // ----- U: ACTUALIZAR -----
+    // actualizar prueba
     it('debería actualizar el precio de un producto sin cambiar su id', () => {
         const actualizado = actualizarProducto(1, { precio: 5000, id: 999 });
 
@@ -57,7 +56,7 @@ describe('productosService', () => {
         expect(actualizado.id).toBe(1);
     });
 
-    // ----- D: ELIMINAR -----
+    // eliminar prueba
     it('debería eliminar un producto', () => {
         const resultado = eliminarProducto(1);
 

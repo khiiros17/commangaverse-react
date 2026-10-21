@@ -1,42 +1,41 @@
-// ============================================================
-//  SERVICIO DE PRODUCTOS (CRUD)
-// ============================================================
+
+//  servicio de producto(CRUD)
 import { productosIniciales } from './productos';
 import { leerDatos, guardarDatos } from './baseDatos';
 
 const CLAVE = 'productos';
 
-// ===== R: LEER =====
+// leer
 
-/** Devuelve todos los productos. */
+/** devuelve todos los productos */
 export function obtenerProductos() {
     return leerDatos(CLAVE, productosIniciales);
 }
 
-/** Devuelve un producto por su id, o null si no existe. */
+/** devuelve un producto por su id o null si no existe. */
 export function obtenerProductoPorId(id) {
     const producto = obtenerProductos().find(p => p.id === Number(id));
     return producto || null;
 }
 
-/** Devuelve la lista de categorías, sin repetir. */
+/** devuelve la lista de categorias sin repetir. */
 export function obtenerCategorias() {
     const categorias = obtenerProductos().map(p => p.categoria);
     return [...new Set(categorias)];
 }
 
-/** Devuelve solo los productos que tienen precio de oferta. */
+/** devuelve solo los productos que tienen precio de oferta. */
 export function obtenerOfertas() {
     return obtenerProductos().filter(p => p.precioOferta !== null && p.precioOferta !== undefined);
 }
 
-// ===== C: CREAR =====
+// crear
 
-/** Crea un producto nuevo con un id que no se repite. Devuelve el producto creado. */
+/** crea un producto nuevo con un id que no se repite devuelve el producto creado */
 export function crearProducto(datos) {
     const productos = obtenerProductos();
 
-    // Busca el id más alto y le suma 1 (igual que en la Evaluación 1)
+    // busca el id mas alto y le suma 1 
     const idMayor = productos.reduce((max, p) => Math.max(max, p.id), 0);
     const nuevo = { ...datos, id: idMayor + 1 };
 
@@ -44,9 +43,9 @@ export function crearProducto(datos) {
     return nuevo;
 }
 
-// ===== U: ACTUALIZAR =====
+// actualizar
 
-/** Actualiza un producto. Devuelve el producto actualizado, o null si no existe. */
+/** actualiza un producto devuelve el producto actualizado o null si no existe */
 export function actualizarProducto(id, cambios) {
     const productos = obtenerProductos();
 
@@ -58,9 +57,9 @@ export function actualizarProducto(id, cambios) {
     return actualizados.find(p => p.id === Number(id)) || null;
 }
 
-// ===== D: ELIMINAR =====
+// eliminar
 
-/** Elimina un producto. Devuelve true si lo eliminó, false si no existía. */
+/** elimina un producto devuelve true si fue eliminado y false si nunca existio */
 export function eliminarProducto(id) {
     const productos = obtenerProductos();
     const restantes = productos.filter(p => p.id !== Number(id));
@@ -69,9 +68,9 @@ export function eliminarProducto(id) {
     return restantes.length < productos.length;
 }
 
-// ===== EXTRA =====
+// para restablecer los productos a los iniciales, esto es para pruebas. uwu
 
-/** Vuelve a la lista original de productos. */
+
 export function restablecerProductos() {
     guardarDatos(CLAVE, productosIniciales);
     return productosIniciales;

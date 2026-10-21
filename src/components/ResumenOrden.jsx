@@ -1,10 +1,7 @@
 import { Table } from 'react-bootstrap';
 import { formatearPrecio } from '../utils/formato';
 
-// ============================================================
-//  RESUMEN DE ORDEN (organismo): tabla con los productos
-//  comprados y el total. Se usa en Pago exitoso y Pago con error.
-// ============================================================
+// resumen de la orden
 function ResumenOrden({ orden }) {
     return (
         <Table variant="dark" responsive className="align-middle">

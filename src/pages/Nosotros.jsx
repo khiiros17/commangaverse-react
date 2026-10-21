@@ -1,7 +1,7 @@
 import { Container, Row, Col, Card, Ratio } from 'react-bootstrap';
 
-// Código del video de YouTube (lo que va después de /embed/)
-const CODIGO_VIDEO = 'hyTs5eUaqvc';                                    // ⬅️ CAMBIO: tu video
+
+const CODIGO_VIDEO = 'hyTs5eUaqvc';
 
 function Nosotros() {
     return (
@@ -24,7 +24,7 @@ function Nosotros() {
                 <Col md={6}>
                     <Card bg="dark" text="white" className="h-100 caja-info">
                         <Card.Body>
-                            <Card.Title className="text-warning">🎯 Misión</Card.Title>
+                            <Card.Title className="text-warning"> Misión</Card.Title>
                             <Card.Text>
                                 Acercar el mundo del cómic y el manga a todos los lectores de Chile, con un catálogo
                                 variado, precios justos y una atención cercana.
@@ -35,7 +35,7 @@ function Nosotros() {
                 <Col md={6}>
                     <Card bg="dark" text="white" className="h-100 caja-info">
                         <Card.Body>
-                            <Card.Title className="text-warning">🚀 Visión</Card.Title>
+                            <Card.Title className="text-warning"> Visión</Card.Title>
                             <Card.Text>
                                 Ser la tienda online de referencia para la comunidad de lectores de cómics y mangas del país.
                             </Card.Text>
@@ -47,9 +47,9 @@ function Nosotros() {
             <section className="mb-5">
                 <h2 className="text-warning h3 mb-3">Conoce más sobre el mundo del cómic</h2>
                 <Ratio aspectRatio="16x9">
-                    {/* ⬅️ CAMBIO: el iframe USA la constante (así ESLint ya no reclama) */}
+
                     <iframe
-                        src={`https://www.youtube.com/embed/${CODIGO_VIDEO}`}
+                        src={`https://www.youtube.com/embed/${'hyTs5eUaqvc'}`}
                         title="Video sobre cómics"
                         allowFullScreen
                     ></iframe>
@@ -60,7 +60,7 @@ function Nosotros() {
                 <h2 className="text-warning h3 mb-3">Desarrollador</h2>
                 <Card bg="dark" text="white" className="caja-info">
                     <Card.Body>
-                        <Card.Title>Javier [Apellido]</Card.Title>                {/* ⬅️ CAMBIO: tu apellido */}
+                        <Card.Title>Javier Miranda</Card.Title>
                         <Card.Text className="text-secondary">
                             Desarrollador Frontend — React, Bootstrap, pruebas con Jasmine y Karma
                         </Card.Text>

@@ -1,6 +1,4 @@
-// ============================================================
-//  PRUEBAS: formulario para crear y editar productos
-// ============================================================
+// pruebas unitarias de pagina admin 
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import FormularioProducto from './FormularioProducto';
@@ -84,7 +82,7 @@ describe('FormularioProducto', () => {
         expect(screen.getByText('La oferta debe ser menor que el precio normal.')).toBeTruthy();
     });
 
-    // MODO EDITAR: los datos vienen cargados y se guarda con el id
+
     it('debería cargar los datos al editar y guardar con el mismo id', () => {
         const espia = jasmine.createSpy('onGuardar');
         dibujarEn('/admin/productos/editar/1', espia);

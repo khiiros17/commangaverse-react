@@ -8,7 +8,7 @@ import { regiones, comunasDe } from '../data/regiones';
 import { detalleCarrito, calcularTotal } from '../utils/carrito';
 import { formatearPrecio } from '../utils/formato';
 
-// Si hay sesión, el formulario parte con los datos del usuario
+// por si partes con el usuario logueado, para poder rellenar .
 function datosIniciales(usuario) {
     return {
         nombre: usuario?.nombre || '',
@@ -22,11 +22,11 @@ function datosIniciales(usuario) {
     };
 }
 
-// Campos obligatorios que se validan al enviar
+
 const CAMPOS = ['nombre', 'apellidos', 'correo', 'region', 'comuna', 'direccion', 'tarjeta'];
 
 function Checkout({ carrito, productos, usuario, onConfirmarCompra }) {
-    // ===== ESTADO =====
+    // estado del formulario
     const [datos, setDatos] = useState(() => datosIniciales(usuario));
     const [errores, setErrores] = useState({});
     const navigate = useNavigate();
@@ -48,7 +48,7 @@ function Checkout({ carrito, productos, usuario, onConfirmarCompra }) {
         }
     }
 
-    // ===== EN TIEMPO REAL =====
+    // ajustes en los campos del formulario en tiempo real.
     function manejarCambio(evento) {
         const { name, value } = evento.target;
 
@@ -61,7 +61,7 @@ function Checkout({ carrito, productos, usuario, onConfirmarCompra }) {
         setErrores({ ...errores, [name]: validarCampo(name, value) });
     }
 
-    // ===== AL PAGAR =====
+    // pagos
     function manejarEnvio(evento) {
         evento.preventDefault();
 
@@ -75,7 +75,7 @@ function Checkout({ carrito, productos, usuario, onConfirmarCompra }) {
             return;
         }
 
-        // Datos del cliente (la tarjeta va aparte: no se guarda completa)
+        // datos del cliente 
         const cliente = {
             nombre: datos.nombre.trim(),
             apellidos: datos.apellidos.trim(),
@@ -86,7 +86,7 @@ function Checkout({ carrito, productos, usuario, onConfirmarCompra }) {
             indicaciones: datos.indicaciones.trim()
         };
 
-        // La App procesa la compra y nos devuelve la orden
+        // la app procesa el pago y loe devuelve.
         const orden = onConfirmarCompra(cliente, datos.tarjeta);
 
         if (orden.estado === 'Pagada') {
@@ -96,7 +96,7 @@ function Checkout({ carrito, productos, usuario, onConfirmarCompra }) {
         }
     }
 
-    // ===== CARRITO VACÍO =====
+    // carrito vacio
     if (lineas.length === 0) {
         return (
             <Container className="my-5">
@@ -113,7 +113,7 @@ function Checkout({ carrito, productos, usuario, onConfirmarCompra }) {
             <h1 className="text-warning mb-4">Checkout</h1>
 
             <Row className="g-4">
-                {/* ===== FORMULARIO ===== */}
+                {/* formulario */}
                 <Col lg={8}>
                     <Card bg="dark" text="white" className="tarjeta-formulario">
                         <Card.Body>
@@ -182,7 +182,7 @@ function Checkout({ carrito, productos, usuario, onConfirmarCompra }) {
                     </Card>
                 </Col>
 
-                {/* ===== RESUMEN ===== */}
+                {/* resumen */}
                 <Col lg={4}>
                     <Card bg="dark" text="white" className="resumen-carrito">
                         <Card.Body>

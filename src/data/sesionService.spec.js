@@ -1,12 +1,12 @@
-// ============================================================
-//  PRUEBAS: servicio de sesión
-// ============================================================
+
+//  pruebas unitarias para el servicio de sesión
+
 import { obtenerSesion, iniciarSesion, actualizarSesion, cerrarSesion } from './sesionService';
 
 describe('sesionService', () => {
 
     beforeEach(() => {
-        localStorage.clear();      // usuarios iniciales (admin@duoc.cl / admin123)
+        localStorage.clear();
         sessionStorage.clear();
     });
 

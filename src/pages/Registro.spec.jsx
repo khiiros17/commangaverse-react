@@ -1,6 +1,4 @@
-// ============================================================
-//  PRUEBAS: página Registro
-// ============================================================
+// pruebas unitarias para la pagina de resultado de pag o exitoso y de pago rechazado
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import Registro from './Registro';
@@ -19,7 +17,7 @@ describe('Página Registro', () => {
         localStorage.clear();
     });
 
-    // EVENTOS + ESTADO: al elegir una región se cargan sus comunas
+
     it('debería cargar las comunas al elegir una región', () => {
         dibujarRegistro();
         const selectComuna = screen.getByLabelText('Comuna');
@@ -31,7 +29,7 @@ describe('Página Registro', () => {
         expect(screen.getByText('Viña del Mar')).toBeTruthy();
     });
 
-    // VALIDACIÓN EN TIEMPO REAL
+
     it('debería mostrar un error si el RUN es inválido', () => {
         dibujarRegistro();
 

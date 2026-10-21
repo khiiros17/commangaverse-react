@@ -1,6 +1,4 @@
-// ============================================================
-//  PRUEBAS: lógica del carrito
-// ============================================================
+// pruebas unitarias para la logia del carrito.
 import {
     precioFinal,
     agregarItem,
@@ -10,7 +8,6 @@ import {
     calcularTotal
 } from './carrito';
 
-// Productos de prueba: uno normal y uno en oferta
 const comicNormal = { id: 1, nombre: 'Cómic normal', precio: 10000, precioOferta: null, stock: 5 };
 const comicOferta = { id: 2, nombre: 'Cómic en oferta', precio: 8000, precioOferta: 6000, stock: 2 };
 const productos = [comicNormal, comicOferta];

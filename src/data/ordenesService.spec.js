@@ -1,6 +1,6 @@
-// ============================================================
-//  PRUEBAS: servicio de órdenes (crear y procesar compras)
-// ============================================================
+
+// pruebas unitarias para el servicio de ordenes
+
 import {
     obtenerOrdenes,
     obtenerOrdenPorId,
@@ -15,7 +15,7 @@ const cliente = { nombre: 'Ana', apellidos: 'Pérez', correo: 'ana@duoc.cl' };
 describe('ordenesService', () => {
 
     beforeEach(() => {
-        localStorage.clear();     // sin órdenes y con los productos iniciales
+        localStorage.clear();
     });
 
     it('debería partir sin órdenes', () => {
@@ -39,7 +39,7 @@ describe('ordenesService', () => {
         expect(obtenerOrdenesDeUsuario('ANA@duoc.cl').length).toBe(1);
     });
 
-    // REGLA DE NEGOCIO: pago aprobado → orden pagada y baja el stock
+    // regla de negocio pago aprobado orden pagada y descuenta el stock
     it('debería crear una orden Pagada y descontar el stock si el pago se aprueba', () => {
         const productos = obtenerProductos();
         const stockAntes = obtenerProductoPorId(1).stock;
@@ -53,7 +53,7 @@ describe('ordenesService', () => {
         expect(obtenerProductoPorId(1).stock).toBe(stockAntes - 2);
     });
 
-    // REGLA DE NEGOCIO: pago rechazado → el stock NO cambia
+    // regla de negocio pago rechazado orden rechazada y no toca el stock
     it('debería crear una orden Rechazada sin tocar el stock si el pago falla', () => {
         const productos = obtenerProductos();
         const stockAntes = obtenerProductoPorId(1).stock;

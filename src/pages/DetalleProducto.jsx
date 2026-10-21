@@ -1,12 +1,12 @@
 import { useParams, Link } from 'react-router-dom';
 import { Container, Row, Col, Badge, Button, Alert, Breadcrumb } from 'react-bootstrap';
-import Precio from '../components/Precio';                     // ⬅️ NUEVO
+import Precio from '../components/Precio';
 
 function DetalleProducto({ productos, onAgregar }) {
-    // Lee el ":id" de la dirección (/producto/3 → id = "3")
+    // Lee el ":id" de la dirección URL
     const { id } = useParams();
 
-    // Busca el producto. Number() porque lo que viene de la URL es texto
+    // busca el producto.
     const producto = productos.find(p => p.id === Number(id));
 
     // Si no existe, muestra un mensaje
@@ -21,10 +21,10 @@ function DetalleProducto({ productos, onAgregar }) {
 
     return (
         <Container className="my-5">
-            {/* Ruta: Inicio > Categoría > Nombre */}
+            {/* ruta: categorías > nombre */}
             <Breadcrumb>
                 <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/' }}>Inicio</Breadcrumb.Item>
-                {/* ⬅️ CAMBIO: la categoría ahora lleva a su página */}
+
                 <Breadcrumb.Item linkAs={Link} linkProps={{ to: `/categorias/${encodeURIComponent(producto.categoria)}` }}>
                     {producto.categoria}
                 </Breadcrumb.Item>
@@ -41,7 +41,7 @@ function DetalleProducto({ productos, onAgregar }) {
                     <h2>{producto.nombre}</h2>
                     <p className="text-secondary">Código: {producto.codigo}</p>
 
-                    {/* ⬅️ CAMBIO: precio con oferta */}
+
                     <Precio producto={producto} grande />
 
                     <p>{producto.descripcion}</p>

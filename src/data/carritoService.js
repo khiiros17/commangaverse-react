@@ -1,17 +1,17 @@
-// ============================================================
+
 //  SERVICIO DEL CARRITO
-//  El carrito se guarda como: [ { id: 1, cantidad: 2 }, ... ]
-// ============================================================
+
+
 import { leerDatos, guardarDatos } from './baseDatos';
 
 const CLAVE = 'carrito';
 
-/** Devuelve el carrito guardado, o una lista vacía. */
+// para mostrar el carrito en la pagina, y se exporta la funcion y asi poder usar en otros arcivos.
 export function obtenerCarrito() {
     return leerDatos(CLAVE, []);
 }
 
-/** Guarda el carrito completo. */
+// para  guardar el carrito en la pagina, y tambien exportar para que se pueda usar en otros archivos.
 export function guardarCarrito(carrito) {
     guardarDatos(CLAVE, carrito);
 }

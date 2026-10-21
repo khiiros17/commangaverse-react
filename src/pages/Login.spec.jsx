@@ -1,6 +1,6 @@
-// ============================================================
-//  PRUEBAS: página Login (estado, eventos y renderizado condicional)
-// ============================================================
+// 
+//  pruebas unitarias para la página de Login
+// 
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import Login from './Login';
@@ -21,11 +21,11 @@ function escribir(etiqueta, texto) {
 describe('Página Login', () => {
 
     beforeEach(() => {
-        localStorage.clear();      // usuarios iniciales (incluye admin@duoc.cl / admin123)
-        sessionStorage.clear();    // sin sesión iniciada
+        localStorage.clear();
+        sessionStorage.clear();
     });
 
-    // PRUEBA DE ESTADO: el input muestra lo que se escribe
+
     it('debería actualizar el estado al escribir el correo', () => {
         dibujarLogin(() => { });
 
@@ -34,7 +34,7 @@ describe('Página Login', () => {
         expect(screen.getByLabelText('Correo electrónico').value).toBe('ana@duoc.cl');
     });
 
-    // RENDERIZADO CONDICIONAL: el error aparece SOLO cuando hay error
+
     it('NO debería mostrar errores al principio', () => {
         dibujarLogin(() => { });
         expect(screen.queryByText(/Solo se aceptan/)).toBeNull();
@@ -48,7 +48,7 @@ describe('Página Login', () => {
         expect(screen.getByText(/Solo se aceptan/)).toBeTruthy();
     });
 
-    // EVENTOS + MOCK: un login correcto avisa a la App
+    // mocks oara simular la funcion de onLogin .
     it('debería llamar a onLogin con el usuario si los datos son correctos', () => {
         const espia = jasmine.createSpy('onLogin');
         dibujarLogin(espia);

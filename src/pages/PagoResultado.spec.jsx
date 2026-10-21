@@ -1,6 +1,4 @@
-// ============================================================
-//  PRUEBAS: páginas Pago exitoso y Pago con error
-// ============================================================
+// pruebas unitarias para la pagina de resultado de pago exitoso y de pago rechazado
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import PagoExitoso from './PagoExitoso';

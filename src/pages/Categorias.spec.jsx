@@ -1,6 +1,4 @@
-// ============================================================
-//  PRUEBAS: página Categorías (con parámetros de ruta)
-// ============================================================
+// pruebaas unitarias para la página de categorías
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import Categorias from './Categorias';
@@ -13,7 +11,7 @@ const productos = [
     { id: 3, nombre: 'One Piece Vol. 1', precio: 8990, precioOferta: null, categoria: 'Manga', imagen: IMAGEN_PRUEBA }
 ];
 
-// Dibuja la página como si la persona entrara a una dirección
+
 function dibujarEn(direccion) {
     return render(
         <MemoryRouter initialEntries={[direccion]}>

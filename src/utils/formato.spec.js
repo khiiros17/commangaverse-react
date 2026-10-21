@@ -1,6 +1,4 @@
-// ============================================================
-//  PRUEBAS: formatearPrecio
-// ============================================================
+// pruebas unitarias para la funcion formato precio
 import { formatearPrecio } from './formato';
 
 describe('formatearPrecio', () => {

@@ -2,10 +2,7 @@ import { Badge } from 'react-bootstrap';
 import { formatearPrecio } from '../utils/formato';
 import { precioFinal } from '../utils/carrito';
 
-// ============================================================
-//  PRECIO (átomo): muestra el precio normal, o el de oferta
-//  con el precio anterior tachado.
-// ============================================================
+// nmuestra los precio normales y las ofertas
 function Precio({ producto, grande = false }) {
     const enOferta = precioFinal(producto) !== producto.precio;
     const tamano = grande ? 'fs-3' : '';

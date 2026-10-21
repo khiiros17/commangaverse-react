@@ -1,8 +1,6 @@
 import { Form } from 'react-bootstrap';
 
-// ============================================================
-//  CAMPO DE FORMULARIO REUTILIZABLE (molécula: etiqueta + input + error)
-// ============================================================
+// campo de formulario
 function CampoFormulario({
     etiqueta,
     nombre,
@@ -30,10 +28,10 @@ function CampoFormulario({
                 isValid={valor !== '' && !error}
             />
 
-            {/* Texto de ayuda: solo si se entrega */}
+
             {ayuda && <Form.Text className="text-secondary">{ayuda}</Form.Text>}
 
-            {/* Mensaje de error: Bootstrap lo muestra solo si isInvalid es true */}
+
             <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
         </Form.Group>
     );
